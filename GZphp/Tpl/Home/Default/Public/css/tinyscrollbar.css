@@ -1,0 +1,14 @@
+/* Tiny Scrollbar */
+#scrollbar1 { width: 385px;  }
+#scrollbar1 .viewport { width: 365px; height: 390px; overflow: hidden; position: relative; }
+#scrollbar1 .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
+#scrollbar1 .scrollbar{ background-color:#efefef; position: relative; background-position: 0 0; float: right; width: 5px; }
+#scrollbar1 .track { background-color:#efefef; height: 100%; width:5px; position: relative; }
+#scrollbar1 .thumb { background-color:#666;  height: 150px; width: 5px; cursor: pointer; overflow: hidden; position: absolute; top: 0; }
+#scrollbar1 .thumb .end {  background-color:#666;  overflow: hidden; height: 5px; width: 5px; }
+#scrollbar1 .disable { display: none; }
+.noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
+.w330 {
+    width: 305px;
+}
+.bgcef{background-color:#efefef;}

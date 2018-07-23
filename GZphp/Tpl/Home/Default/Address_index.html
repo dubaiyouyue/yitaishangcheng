@@ -1,0 +1,158 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+<GZ:list sql="select * from gz_slide_data where id = '32' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+<style>
+    body{  background: url({$img_url}/images/vip_bg.jpg) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;background-attachment: fixed;}
+    .s_year{margin-left: 8px;}
+    select{border: 1px solid #ccc;
+        line-height: 30px;
+        height: 30px;
+        background-color: #fff;
+        padding: 0 10px;}
+    #btn{  width: 70px;
+        margin-left: 9px;
+        padding: 6px;}
+</style>
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+<style>
+    body{  background: url({$ewmpic}) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;}
+</style>
+<!-----------内容--------->
+
+<div class="centent5 pb80" style="height:auto; overflow:auto;">
+
+
+
+    <include file="U:l" />
+
+
+
+
+    <div class="fr w680">
+        <include file="U:a" />
+
+<form name="myform" id="myform" method="POST" action="{:URL('Home-Address/edit')}">
+        <div class="mt50  lh30">
+
+            <div class="lh40 bgcfa pl10 pr10 ">
+			
+			<?php
+				foreach($list_address as $k=>$v){
+					if(!$v['def']){
+					?>
+					
+                <p><?php echo $v['name'];?>&nbsp;&nbsp;&nbsp;<?php echo $v['tel'];?>&nbsp;&nbsp;&nbsp;<?php echo $v['xxdz'];?>
+				<!--<span class="ml20"><a href="" class="fcred">修改</a></span>-->
+				
+				<span class="ml10"><a href="/index.php?g=Home&m=Address&a=del&id=<?php echo $v['id'];?>" class="fcred">删除</a></span><span class="ml10"><a href="/index.php?g=Home&m=Address&a=def&id=<?php echo $v['id'];?>&def=1" class=" fc64 tdun">设为默认地址</a></p>
+				<div class=" bbdcc"></div>
+					<?php
+					}
+					else{
+					?>
+					 <p><?php echo $v['name'];?>&nbsp;&nbsp;&nbsp;<?php echo $v['tel'];?>&nbsp;&nbsp;&nbsp;<?php echo $v['xxdz'];?>
+					 <!--<span class="ml20"><a href="" class="fcred">修改</a></span>-->
+					 <span class="ml10"><a href="/index.php?g=Home&m=Address&a=del&id=<?php echo $v['id'];?>" class="fcred">删除</a></span><span class="ml10"><a href="javascript:;" class="fcred">默认</a></span></p>
+					 <div class=" bbdcc"></div>
+					<?php
+					}
+				}
+			?>
+			
+			
+               
+				
+				
+				
+				
+                
+            </div>
+
+        </div>
+
+        <div class="mt30 fs14 fcred">增加新的收货地址：</div>
+        <div class="mt15">
+            <div class="lh35"> 收&nbsp;&nbsp;货&nbsp;&nbsp;人<b class="fcred">*</b>：
+                <input type="text" name="name" id="name" class="w100 select1 mr12" /></div>
+            <div class="lh35">手机号码 <b class="fcred">*</b>：
+                <input type="text" name="tel" id="tel" class="w100 select1" /></div>
+            <div class="lh35">所在地区<b class="fcred"> *</b>：
+			<input id="address-address" name="dz" type="hidden" value="" />
+			
+                <!--<select name="" class="select1"><option>中国大陆</option></select><select class="select1 ml10" name=""><option>请选择省市区</option></select>-->
+				
+				<include file="D:q" />
+				
+				
+				</div>
+            <div class="lh35">详细地址 <b class="fcred">*</b>：
+                <input type="text" name="xxdz" id="xxdz" class=" w430 select1 mr12" /></div>
+            <div class="lh35">邮政编码 <b class="fcred">*</b>：
+                <input type="text" name="yb" id="yb" class="w100 select1" /></div>
+            <div class="ml75 mt10"><input class="red_kuai1" type="button" onclick="tesssupdok();" value="确定" /></div>
+        </div>
+
+    </div>
+
+</form>
+
+
+
+
+
+
+
+    </div>
+</div>
+<script>
+function tesssupdok(){
+		var name=document.getElementById('name').value;
+        var tel=document.getElementById('tel').value;
+        var xxdz=document.getElementById('xxdz').value;
+		
+        var yb=document.getElementById('yb').value;
+
+        if(!name){
+            //alert('请输入用户名');return false;
+			layer.msg('请填写收货人！');
+			//$('#tsfdsfdsfdf').text('请输入用户名!');
+			return false;
+        }
+        if(!tel){
+            //alert('请输入手机号');return false;
+			layer.msg('请输入手机号！');
+			//$('#tsfdsfdsfdf').text('请输入手机号!');
+			return false;
+        }
+        if(!xxdz){
+            //alert('请输入短信验证码');return false;
+			layer.msg('请填写详细地址！');
+			return false;
+        }
+        if(!yb){
+            //alert('请输入密码');return false;
+			layer.msg('请填写邮编！');
+			return false;
+        }
+       
+        document.getElementById("myform").submit();
+	}
+</script>
+<!-----------内容--------->
+
+<include file="Page:footer" />

@@ -1,0 +1,95 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+
+<div class="w680 bgcfff p50" style="height:auto; overflow:auto">
+
+  <div class="fl w245">
+        <div class="mb15"><a href=""><img src="{$pic}" width="245" /></a></div>
+        <div class="fs14 fc000 pt20"><a href="">{$title}</a></span></div>
+  </div>
+  
+  <div class="fr w400">
+    <div class="fc000 fs16 lh30 bgcfa t1em fclan mb15">商品评价：</div>
+    <div class="fcred fs14">感谢您的一路相伴，因为有您，我们将做得更好！</div>
+    <div class="mt20 h30">
+          <div class="fl"><input type="radio" name="radio2" value="5">满意</div>
+          <div class="fl ml15"><input type="radio" name="radio2" value="3">一般</div>
+          <div class="fl ml15"><input type="radio" name="radio2" value="1">不满意</div>
+		  <input type="hidden" name="ttid" value="{$ttid}" id="contentcontentttid" />
+		  <input type="hidden" name="did" value="{$did}" id="contentcontentttidddd" />
+    </div>
+    <div class="mt10"><textarea maxlength="100" name="contentcontent" id="contentcontent" class="textarea1" cols="50" rows="7" onkeydown="textdown(event)" onkeyup="textup()" onfocus="if(value=='限100字'){value=''}" onblur="if (value ==''){value='限100字'}">限100字</textarea>
+</div>
+    
+    <div class="mt10">
+      <div class="fl">您还可以输入<span class="fchuang" id="contentwordage">100</span>个字</div>
+      <div class="fr" id="tjokkk"><input class="red_kuai1" type="button" value="提交评价"></div>
+    </div>
+
+  </div>
+  
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+    var limitNum = 100;
+    var pattern = limitNum;
+    $('#contentwordage').html(pattern);
+    $('#contentcontent').keyup(
+    function(){
+        var remain = $(this).val().length;
+        if(remain > 100){
+                pattern = 0;
+            }else{
+                var result = limitNum - remain;
+                pattern = result;
+            }
+            $('#contentwordage').html(pattern);
+        }
+    );
+});
+
+$('.red_kuai1').click(function(){
+	var val_payPlatform = $('input[name="radio2"]:checked').val();
+	if(!val_payPlatform){
+		alert('请选择评分！');
+		return false;
+	}
+	var val_contentcontent = $('#contentcontent').val();
+	if(!val_contentcontent || val_contentcontent=='限100字'){
+		alert('请填写评价内容！');
+		return false;
+	}
+	var val_ttid=$('#contentcontentttid').val();
+	var val_ttiddd=$('#contentcontentttidddd').val();
+	//alert(val_contentcontent);
+		var url='/index.php?g=Home&m=Pingjiaformpost&a=index';
+	  $.post(url,
+	  {
+		did:val_ttiddd,
+		ttid:val_ttid,
+		name:val_contentcontent,
+		city:val_payPlatform
+	  },
+	  function(data,status){
+		$('#tjokkk').html('<img src="/demo/images/5-121204193934-51.gif" />');
+		//alert("Data: " + data + "\nStatus: " + status);
+		if(status='success') {
+			layer.closeAll(); 
+			layer.msg('评价成功！');
+			$('#ypjjj'+val_ttiddd).html('已评价');
+			$('#ypjjj'+val_ttiddd).removeAttr("onclick");
+			$('#ypjjj'+val_ttiddd).css("backgroundColor","#ccc");
+			//layer.alert('评价成功！', {icon: 1});
+			}
+	  });
+	  
+	});
+	
+</script>
+
+
+
+<include file="Page:footer" />

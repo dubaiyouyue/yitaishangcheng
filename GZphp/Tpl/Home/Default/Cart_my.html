@@ -1,0 +1,155 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+<GZ:list sql="select * from gz_slide_data where id = '32' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+<?php
+
+//dump($list_my);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+<style>
+    body{  background: url({$ewmpic}) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;background-attachment: fixed;}
+</style>
+<!-----------内容--------->
+
+<div class="centent5 pb80" style="height:auto; overflow:auto;">
+
+
+
+
+    <include file="U:l" />
+
+
+    <div class="fr w680">
+
+        <include file="U:a" />
+
+
+        <div class="mt50">
+
+
+            <?php
+			//dump($list_my);
+			//$nsfdsfdsfsss='/index.php/ffllllontttt/show/';
+foreach($list_my as $k=>$v){
+            ?>
+
+            <div class="bscd bgcfff" style=" margin-bottom: 8px;" id="myspppid{$v.did}">
+                <div class="bgcfff bbs1e3 lh35 h35  pl10">下单时间：{$v.ctime|toDate=###,'Y-m-d H:i:s'}<span class="ml20">订单号：{$v.ddh}</span></div>
+                <div class="h90 mt15">
+                    <div class="fl ml10 mr12 w59"><a href="{$nsfdsfdsfsss}{$v.id}.html"><img src="{$v.thumb}" width="59" height="75" /></a></div>
+                    <div class="fl lh24 w245">
+                        <a href="{$nsfdsfdsfsss}{$v.id}.html">{$v.title}</a>
+                        <p class="fc64">颜色：{$v.ys}&nbsp;&nbsp;尺码：{$v.cm}</p>
+                    </div>
+
+                    <div class=" w85 fl lh20 tacn">￥{$v.price}<p class="fca7 tdlt" style="display: none">2576.00</p></div>
+                    <div class=" w47 fl tacn" id="nn{$v.did}">{$v.num}件<p class="fcred" id="np{$v.did}">￥<?php
+            echo ($v['price']*$v['num']);
+            ?></p></div>
+
+
+                    <div class=" w85 fl lh24 tacn">
+					{if $v['ok']}已付款{else}等待付款{/if}
+                        <p><a href="{$nsfdsfdsfsss}{$v.id}.html" class="fcred">订单详情</a></p>
+                        <p>
+						{if $v['ok']}<a href="javascript:;" class="pingjia" id="ypjjj{$v.did}" {if $v['ypj']}style="background-color: #ccc;"{else}onclick="pingjia('{$v.id}','{$v.title}','{$v.thumb}','{$v.did}');"{/if}>{if $v['ypj']}已评价{else}评价商品{/if}</a>
+			{else}
+			<a href="javascript:;" onclick="delo('{$v.did}');cnumcc('{$v.num}','<?php
+            echo ($v['price']*$v['num']);
+            ?>');" class="pingjia">取消订单</a>
+			{/if}</p>
+			
+			</div>
+
+
+                    <div class=" w85 fl lh20 tacn"></div>
+                </div>
+            </div>
+
+            <?php }?>
+
+
+
+
+            <div class="mt15 h45 lh45 bgcfa" style="display:none;">
+                <div class="fr"><input class="jiesuan" type="button" value="去结算" /></div>
+                <div class="fr mr12">共<b class="fs16 fcred"> <span id="sppnn">{$dd_spp}</span> </b>件商品&nbsp;&nbsp;邮费：<b class="fs16 fcred">￥<?php if($dd_spp_jg<$buyon) echo $buyyf;else echo '0';?></b>&nbsp;&nbsp;商品应付总额：<b class="fs20 fcred">￥<span  id="psze2">{$dd_spp_jg}</span></b></div>
+                <!--<div class="fl ml10"><a href="/index.php/products1/">继续购物</a> | <a href="">清空购物车</a></div>-->
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>
+
+<!-----------内容--------->
+<script>
+
+//删除商品
+function delo(did){
+//alert(did);
+var ii = layer.load();
+$.ajax( {
+url: '/index.php?g=Home&m=Cart&a=index&del=ok&id='+did, //这里是静态页的地址
+type: "GET", //静态页用get方法，否则服务器会抛出405错误
+success: function(){
+$('#myspppid'+did).remove();
+setTimeout(function(){
+layer.close(ii);
+
+}, 300);
+
+//cnumcc(did,'');
+
+
+}
+});
+}
+
+
+function cnumcc(num,pri){
+
+    var allo=parseInt($('#psze2').text());
+    allo=allo-pri;
+    $('#psze2').text(allo);
+
+    var anum=parseInt($('#sppnn').text());
+    anum=anum-num;
+    $('#sppnn').text(anum);
+}
+//评价弹窗
+  
+  function pingjia(tid,tt,pi,ddid){
+	//Ajax获取
+		layer.closeAll(); 
+		var illos=layer.load(1);
+		var url='/index.php?g=Home&m=Pingjiaform&a=index&mmm=iframe&id='+tid+'&v='+Math.random()+'&pic='+pi+'&title='+tt+'&did='+ddid;
+        $.post(url, {}, function(str){
+            layer.open({
+                title: false,
+                shadeClose:false,
+                area: ['800px', '500px'],
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+			
+			layer.close(illos);
+        });
+  }
+
+</script>
+
+
+
+<include file="Page:footer" />

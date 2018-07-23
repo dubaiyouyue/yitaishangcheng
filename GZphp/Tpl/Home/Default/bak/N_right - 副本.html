@@ -1,0 +1,48 @@
+<!--S-公司活动-js-->
+	<script  src="/demo/jquery22.js" type="text/javascript"></script>
+<!--E-公司活动-js-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="v_show1 wrapper" style="width:310px;">
+    <div class="change_btn prev1 next_tuijian arrow back">上一页</div>
+    <div class="change_btn next1 prev_tuijian arrow forward">下一页</div>
+
+  <div class="v_content1" style=" width:310px; height:70px;">
+    <div  class="v_content_list1">
+      <ul style="width: 9999px;">
+        
+       
+		<?php
+			foreach($tjdp_arr as $k=>$v){
+				echo '<li class="tuijian"><a href="'.$v['url'].'" title="'.$v['title'].'"><img src="'.$v['thumb'].'" width="68" height="68" /></a></li>';
+			}
+		?>
+		
+		
+		
+		
+      </ul>
+    </div>
+  </div>
+</div>

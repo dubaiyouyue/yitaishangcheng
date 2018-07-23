@@ -1,0 +1,60 @@
+<?php
+/**
+ * 
+ * User(会员管理文件)
+ *
+ * @package      	GZPHP
+ * @author          wen QQ:52009619 <admin@resonance.com.cn>
+ * @copyright     	Copyright (c) 2008-2011  (http://www.resonance.com.cn)
+ * @license         http://www.resonance.com.cn/license.txt
+ * @version        	GzPHP企业网站管理系统 v2.1 2011-03-01 resonance.com.cn $
+ */
+if(!defined("GZPHP")) exit("Access Denied");
+class HuiyuanjfAction extends AdminbaseAction {
+
+    public $dao,$usergroup;
+	function _initialize()
+	{
+		parent::_initialize();
+		$this->dao = D('Huiyuanjf');
+		$this->usergroup=F('Role');
+		$this->assign('usergroup',$this->usergroup);
+	}
+
+
+	function index(){
+		import ( '@.ORG.Page' );
+
+		$keyword=$_GET['keyword'];
+		$searchtype=$_GET['searchtype'];
+		$groupid =intval($_GET['groupid']);
+
+		$this->assign($_GET);
+		$where['uid']=$_GET['uid']+0;
+		if(!empty($keyword) && !empty($searchtype)){
+			$where[$searchtype]=array('like','%'.$keyword.'%');
+		}
+		if($groupid)$where['groupid']=$groupid;
+
+		$user=$this->dao;
+		$count=$user->where($where)->count();
+		$page=new Page($count,20);
+		$show=$page->show();
+		$this->assign("page",$show);
+		$list=$user->order('id')->where($where)
+		->limit($page->firstRow.','.$page->listRows)->select();
+
+		$this->assign('ulist',$list);
+		$this->display();
+	}
+	public function add()
+    {
+		$vo['catid']= intval($_GET['catid']);
+		$form=new Form($vo);
+		$form->isadmin=1;
+		$this->assign ( 'form', $form );
+		$template =  file_exists(THEME_PATH.MODULE_NAME.'_edit.html') ? MODULE_NAME.':edit' : 'Content:edit';
+		$this->display ( $template);
+	}
+}
+?>

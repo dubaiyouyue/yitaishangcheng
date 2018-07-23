@@ -1,0 +1,95 @@
+<style>
+    body{  background: url({$img_url}/images/vip_bg.jpg) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;}
+    .s_year{margin-left: 8px;}
+    select{border: 1px solid #ccc;
+        line-height: 30px;
+        height: 30px;
+        background-color: #fff;
+        padding: 0 10px;}
+    #btn{  width: 70px;
+        margin-left: 9px;
+        padding: 6px;}
+</style>
+
+<table cellspacing="0" cellpadding="6" border="0">
+<tr>  
+<td class="td_left">
+<select name="year" onchange="getDates()" class="s_year">
+<script language="javascript" type="text/javascript"> 
+var date=new Date(); 
+var year=date.getFullYear();
+
+for(var i=year;i>=year-100;i--){
+ if(i==year) document.write("<?php if($new_mm['year']) echo '<option value='.$new_mm['year'].'>'.$new_mm['year'].'</option>';?>");
+document.write("<option value="+i+">"+i+"</option>"); 
+} 
+function append(o,v){ 
+//var option=document.createElement("option"); 
+//option.value=v; 
+//option.innerText=v; 
+var option=new Option(v,v); 
+//o.appendChild(option); 
+o.options.add(option); 
+}
+
+function getDates(){
+
+var y=document.getElementsByName("year")[0].value; 
+var m=document.getElementsByName("month")[0].value;
+
+var day=document.getElementsByName("day")[0]; 
+day.innerHTML="";
+
+if(m==1 || m==3 || m==5 || m==7 || m==8 || m==10 || m==12){ 
+for(var j=1;j<=31;j++){ 
+append(day,j); 
+} 
+} 
+else if(m==4 || m==6 || m==9 || m==11){ 
+for(var j=1;j<=30;j++){ 
+append(day,j); 
+} 
+} 
+else if(m==2){ 
+var flag=true; 
+flag=y%4==0&&y%100!=0||y%400==0; 
+if(flag){ 
+for(var j=1;j<=29;j++){ 
+append(day,j); 
+} 
+} 
+else{ 
+for(var j=1;j<=28;j++){ 
+append(day,j); 
+} 
+} 
+}
+
+} 
+</script> 
+</select> 
+年 
+<select name="month" onchange="getDates()">
+ <?php if($new_mm['month']) echo '<option value="'.$new_mm['month'].'">'.$new_mm['month'].'</option>';?>
+<script language="javascript" type="text/javascript">
+
+for(var i=1;i<=12;i++){ 
+document.write("<option value="+i+">"+i+"</option>"); 
+} 
+</script> 
+</select> 
+月 
+<select name="day"> <?php if($new_mm['day']) echo '<option value="'.$new_mm['day'].'">'.$new_mm['day'].'</option>';?>
+<script language="javascript" type="text/javascript">
+
+for(var i=1;i<=31;i++){ 
+document.write("<option value="+i+">"+i+"</option>"); 
+} 
+</script> 
+</select> 
+日 
+</td> 
+</tr> 
+</table> 

@@ -1,0 +1,80 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+<GZ:list sql="select * from gz_slide_data where id = '32' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+<?php
+
+//dump($list_my);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+<style>
+    body{  background: url({$ewmpic}) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;background-attachment: fixed;}.my_love{width:210px; margin:0 8px 15px; height:313px; position:relative};  
+.my_love_pic{ width:210px; height:268px;} 
+.my_love_pic span{display:none; position:absolute;} 
+.my_love_pic:hover span{ display:block; top:0; right:0;background-color:#EC184C; padding:0 5px; }
+.my_love_pic a{color:#fff; line-height:20px}
+</style>
+<!-----------内容--------->
+
+<div class="centent5 pb80" style="height:auto; overflow:auto;">
+
+
+
+
+    <include file="U:l" />
+
+
+    <div class="fr w680">
+
+        <include file="U:a" />
+
+
+        <div class="mt50  lh30">
+        
+		
+		<?php
+		foreach($list_my as $k=>$v){
+		
+		
+			echo '<div class="fl my_love" id="myspppid'.$v['id'].'"><div class="my_love_pic"><a href="'.$v['url'].'"><img src="'.$v['thumb'].'" width="210" /></a><span><a href="javascript:;" onclick="del(\''.$v['id'].'\');">删除</a></span></div><div class="mt10 lh18 h35 ofhd"><a href="'.$v['url'].'">'.$v['title'].'</a></div>
+         </div>';
+		
+		}
+		?>
+         
+         
+         
+		 
+         
+        </div>
+
+    </div>
+</div>
+
+<!-----------内容--------->
+<script>
+
+//删除
+function del(did){
+
+	$.ajax( {
+	url: '/index.php?g=Home&m=Like&a=del&id='+did, //这里是静态页的地址
+	type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		success: function(){
+			$('#myspppid'+did).remove();
+		}
+	});
+}
+</script>
+
+
+
+<include file="Page:footer" />

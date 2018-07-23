@@ -1,0 +1,71 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+<script src="/demo/laydate/laydate.js"></script>
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+<style>
+    body{  background: url({$img_url}/images/vip_bg.jpg) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;background-attachment: fixed;}
+		.ppyyssss{display: block;
+    padding: 6px;
+    border-bottom: 1px solid #eee;
+    padding-top: 9px;
+    background-color: #fff;}
+</style>
+
+<!-----------内容--------->
+  <form name="myform" id="myform" action="{:URL('Home-Zxyy/edit')}" method="post">
+    <div class="centent5 pb80" style="height:auto; overflow:auto">
+      <include file="U:l" />
+      <div class="fr w680">
+        <div class="bbs1lan h30 fs14">
+          <a href="/index.php?g=Home&m=Zxyy&a=index"><div class="fl VIP_bk1{if $action_name=='index'}_on{/if}">在线预约</div></a>
+		  <a href="/index.php?g=Home&m=Zxyy&a=my"><div class="fl VIP_bk1{if $action_name=='my'}_on{/if}">我的预约</div></a>
+        </div>
+		<div style="width:100%;height:12px;"></div>
+        <?php
+			foreach($list as $k=>$v){
+				$k++;
+				echo '<p class="ppyyssss">#'.$k.' 时间：'.$v['yysj'].' 姓名：'.$v['name'].' 联系方式：'.$v['lxfs'].' 预约门店：'.$v['yymmdd'].'</p>';
+			}
+		?>
+		
+      </div>
+    </div>
+  </form>
+<!-----------内容--------->
+<script>
+function tesssupdok(){
+		var yysj=document.getElementById('yysj').value;
+        var name=document.getElementById('name').value;
+        var lxfs=document.getElementById('lxfs').value;
+
+
+        if(!yysj){
+            //alert('请输入用户名');return false;
+			layer.msg('请选择预约时间！');
+			//$('#tsfdsfdsfdf').text('请输入用户名!');
+			return false;
+        }
+        if(!name){
+            //alert('请输入手机号');return false;
+			layer.msg('请填写姓名！');
+			//$('#tsfdsfdsfdf').text('请输入手机号!');
+			return false;
+        }
+        if(!lxfs){
+            //alert('请输入短信验证码');return false;
+			layer.msg('请填写联系方式！');
+			return false;
+        }
+      
+       
+        document.getElementById("myform").submit();
+	}
+</script>
+<include file="Page:footer" />

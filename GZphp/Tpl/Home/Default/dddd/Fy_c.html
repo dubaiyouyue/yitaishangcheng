@@ -1,0 +1,15 @@
+<?php 
+$jjsfdsid=$Categorys[$catid]['arrchildid'];
+$sql='select id from gz_product where catid in ('.$jjsfdsid.') and status=1';
+$sp_n=@mysql_num_rows(@mysql_query($sql));
+
+$perNumber=15; //每页显示的记录数 
+$page=$_GET['page']; //获得当前的页面值 
+	//$count=$sp_n; mysql_query("select count(*) from user"); //获得记录总数 
+	//$rs=mysql_fetch_array($count);  
+$totalNumber=$sp_n; //$rs[0]; 
+$totalPage=ceil($totalNumber/$perNumber); //计算出总页数 
+if (!isset($page)) $page=1; //如果没有值,则赋值1 
+$startCount=($page-1)*$perNumber; //分页开始,根据此方法计算出开始的记录 
+	//$result=mysql_query("select * from user limit $startCount,$perNumber"); //根据前面的计算出开始的记录和记录数 
+?>

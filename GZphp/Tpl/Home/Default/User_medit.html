@@ -1,0 +1,126 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+$user_avvv='/Public/Uploads';
+?>
+<style>
+    body{  background: url({$img_url}/images/vip_bg.jpg) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;}
+    .s_year{margin-left: 8px;}
+    select{border: 1px solid #ccc;
+        line-height: 30px;
+        height: 30px;
+        background-color: #fff;
+        padding: 0 10px;}
+    #btn{  width: 70px;
+        margin-left: 9px;
+        padding: 6px;}
+</style>
+<!-----------内容--------->
+
+<div class="centent5 pb80" style="height:auto; overflow:auto;">
+
+
+
+
+    <include file="U:l" />
+
+
+
+
+
+
+
+
+
+    <div class="fr w680">
+
+        <include file="U:a" />
+
+
+        <form action="/index.php?g=Home&m=User&a=upload_newmmm" id="myform" method="post">
+        <div class="mt50 h30 lh30">
+            
+			
+        
+        <div class="mt15 h30 lh30">
+            <div class="tar w60 fl"><b class="fcred">*</b> 手机号</div>
+            <div class="fl ml15">
+				<input type="text" name="mobile" value="{$new_mm.mobile}" id="mobile" class=" w200 select2 " />
+				
+			</div>
+            
+        </div>
+        
+       
+       
+
+
+            <div class="mt15 h35 lh30">
+                <div class="tar w60 fl">短信验证码</div>
+
+                <div class="fl ml15"><input type="text" id="dxzym" name="dxzym" value="" class="select2 " /></div>
+
+
+                <p><a href="javascript:;" id="myspppidcc" onclick="ccode();" style="color:red;">&nbsp;点击获取手机短信验证码</a></p>
+
+            </div>
+
+
+        <div class="ml75 mt20"><input class="red_kuai1" type="button" onclick="tesssupdok();" value="保存修改" /></div>
+
+
+        </form>
+    </div>
+
+
+
+
+</div>
+
+<!-----------内容--------->
+
+<script>
+function tesssupdok(){
+		var name=document.getElementById('dxzym').value;
+
+        if(!name){
+            //alert('请输入用户名');return false;
+			layer.msg('请输入短信验证码！');
+			//$('#tsfdsfdsfdf').text('请输入用户名!');
+			return false;
+        }       
+        document.getElementById("myform").submit();
+	}
+
+function ccode(){
+var mobile=document.getElementById('mobile').value;
+if(!mobile){
+            alert('请输入手机号');return false;
+        }
+	$.ajax( { 
+        url: '/emay.php/?tel='+mobile, //这里是静态页的地址 
+        type: "GET", //静态页用get方法，否则服务器会抛出405错误 
+        success: function(){ 
+		alert('手机短信验证码已发送！');
+            $('#myspppidcc').remove();
+        } 
+}); 
+}
+
+</script>
+
+
+
+
+
+
+
+
+<include file="Page:footer" />

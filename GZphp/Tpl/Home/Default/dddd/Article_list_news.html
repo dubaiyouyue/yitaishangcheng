@@ -1,0 +1,151 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+<style>
+body {
+  background: url({$xl_url_mod}/images/news_bg.jpg) no-repeat center fixed;
+}
+</style>
+<script src="{$xl_url_mod}js/jquery.min.js"></script>
+  
+  <div>
+  <div class="centent1" style=" display:block; margin-top:230px; height:510px;">
+  <div class="ofhd" style="height:490px;">
+    <div class="w500 fl tar">
+
+
+<?php
+	
+  $sql='select id from gz_article where catid=30 and status=1';
+  $result=@mysql_query($sql);
+  $nn_xl=@mysql_num_rows($result);
+  $lllsrr=3;
+  $nn_xl=ceil($nn_xl/$lllsrr);
+  $limitss=$_GET['limitss']+0;
+
+  //$cssjj_css='';
+  //$cssjj_csss='';
+  //$asfas=$limitss%2;
+  //if(!$asfas && $limitss) $cssjj_css='fanye_on'; 
+  //if($asfas || !$limitss) $cssjj_csss='fanye_on'; 
+
+  if($limitss<2) $limitss=1;
+  if($limitss>$nn_xl) $limitss=$nn_xl;
+  //if($_GET['ajajok']=='add') $css_xl++;
+  //if($_GET['ajajok']=='del') $css_xl--;
+  //$limitss=$limitss>1?$limitss:0;
+  //$css_xl=$limitss?$limitss:1;
+  $css_xlaa=$limitss;
+  $limitss=($limitss-1)*$lllsrr;
+  //else $limitss=1;
+?>
+
+<div id="xl_ajax_pp">{php $where = 'status=1';}
+    <GZ:list catid="catid" limit="$limitss,$lllsrr" where="$where" order="posid desc,listorder desc,id desc">
+      <div class="h90 ofhd mt50">
+        <a href="{$r.url}"><div class="fs35 lh45">{$r.createtime|toDate=###,'m.d'}</div>
+        <div class="fs16 lh27 h27 ofhd">{$r.title}</div>
+        <div class="fs14 fc999"> {$r.description}</div></a>
+      </div>
+  </GZ:list>
+</div>
+
+
+
+
+    </div>
+    <div class="fl ml20"><img src="{$xl_url_mod}images/news_line.png" width="24" height="478" /></div>
+    <div class="fl ml50 w500" style="height:490px;">
+<?php 
+//$xwzcwz=str_replace("<br />","",$xwzcwz);
+//$xwzcwz=str_replace("&nbsp;","",$xwzcwz);
+//echo htmlentities($xwzcwz);
+//echo html_entity_decode($xwzcwz);
+?>
+<div class="fs55 mt120">
+{$xwzcwzo}
+</div>       <div class="fs35">
+{$xwzcwzt}
+</div>       <div class="fs20 fc999 lh35">
+{$xwzcwzf}
+</div>       <div class="fc999 ">
+{$xwzcwzs}
+</div>
+    </div>    
+  </div>
+  
+ <div class="icon_cn">
+ 
+      <?php       
+        $nn_xla=$css_xlaa+1;
+		$css_xl=$css_xlaa-1;
+        //$ajaja='<a href="#" class="'.$cssjj_csss.'" onclick="ajajaxx(\''.$css_xl.'\',\'add\');">0'.$css_xl.'</a>';
+        //if($nn_xl>1) $ajaja=$ajaja.'/<a href="#" class="'.$cssjj_css.'" onclick="ajajaxx(\''.$nn_xla.'\',\'del\');">0'.$nn_xla.'</a>';
+        //if($nn_xl<$nn_xla){
+          //$css_xl=$nn_xla-2;
+          //$nn_xla=1;
+          //$ajaja='<a href="#" class="'.$cssjj_csss.'" onclick="ajajaxx(\''.$css_xl.'\',\'add\');">0'.$css_xl.'</a>';
+          //$ajaja=$ajaja.'/<a href="#" class="'.$cssjj_css.'" onclick="ajajaxx(\''.$nn_xla.'\',\'del\');">0'.$nn_xla.'</a>';
+        //}
+        //echo $ajaja;
+
+     ?>
+ 
+ 
+ <div id="afdsfss">
+    <div class="fl ml10"><a href="#" onclick="ajajaxx('{$css_xl}','q')"><img src="{$xl_url_mod}images/news_left.png" width="20" height="18" /></a></div>
+    <a href="#" onclick="ajajaxx('{$css_xl}','q')"><div class="yuan news_icon2"></div></a>
+    <a href="/index.php/news/"><div class="yuan news_icon1"></div></a>
+    <a href="#" onclick="ajajaxx('{$nn_xla}','h')"><div class="yuan news_icon2"></div></a>
+    <div class="fl ml10"><a href="#" onclick="ajajaxx('{$nn_xla}','h')"><img src="{$xl_url_mod}images/news_right.png" width="20" height="18" /></a></div></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+function ajajaxx(n,m){
+    $.ajax( {
+      url: '/index.php/news/?ajajok='+m+'&limitss='+n, //这里是静态页的地址
+      type: "GET", //静态页用get方法，否则服务器会抛出405错误
+	  	  beforeSend: function(){
+		$('#xl_ajax_pp').html('<img src="/GZphp/Tpl/Home/Default/Public/images/2008022817472355.gif">');
+		},
+      success: function(data){
+          var result = $(data).find('#xl_ajax_pp').first().html();
+          var rrafdsfss= $(data).find('#afdsfss').first().html();
+          $('#xl_ajax_pp').html(result);
+          $('#afdsfss').html(rrafdsfss);
+          //alert(result);
+      }
+    });
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<include file="Page:footer" />

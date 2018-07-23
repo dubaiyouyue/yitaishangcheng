@@ -1,0 +1,54 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+
+  
+  <div class="left_nav">
+    <ul><!--左边分类列表-->
+	
+  <li><a href="/index.php/store/">全部分类</a></li>
+  <p><img src="{$xl_url_mod}images/next.png" width="9" height="10" /></p>		
+	
+	
+<GZ:subcat catid="bcid">
+  <li><a href="{$r.url}">{$r.catname}</a></li>
+  <p><img src="{$xl_url_mod}images/next.png" width="9" height="10" /></p>
+</GZ:subcat>
+    </ul>
+  </div>
+  
+<script>
+function strooop(ss,n){
+	/*
+	$('.store_pic').find('.fs16').each(function(){ 
+		//alert($(element).text()); 
+		$('.fs16').css('bottom','-145px');
+	});
+	$('#ssdddss'+ss).animate({bottom:'0px'});
+	*/
+  if(n==1) {
+	$('#ssdddss'+ss).animate({bottom:'0px'});
+	return false;
+	}
+  if(n==2) {
+	$('#ssdddss'+ss).animate({bottom:'-145px'});
+	return false;
+	}
+	
+  
+}
+</script>
+  
+<div class="centent5 pb35" style="margin-top:180px;">{php $where = 'status=1';}
+  <GZ:list catid="catid" limit="99999" where="$where" order="posid desc,listorder desc,id desc"><?php //dump($r);?>
+	<a href="{$r.url}">
+	<div class="store_pic"><span style="pointer-events:none;" id="ssdddss{$r.id}" class="fs16">{$r.title}<img src="{$xl_url_mod}images/store_zi.png" class="mt15" width="270" height="28" /></span><img src="{$r.thumb}" style="width:328px;" />
+	
+	<div style="background:url({$xl_url_mod}images/no.gif);top: 0px;width: 328px;height: 330px;position: absolute;" onmouseover="strooop('{$r.id}','1');" onmouseout="strooop('{$r.id}','2');"></div>
+	</div>
+	</a>
+  </GZ:list>
+ 
+</div>
+
+<include file="Page:footer" />

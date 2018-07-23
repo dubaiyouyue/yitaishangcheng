@@ -1,0 +1,116 @@
+{__NOLAYOUT__}
+<?php
+$key=$_GET['key'];
+$keycatid=$_GET['keycatid']+0;
+$sql='select * from gz_category';
+$reslut=@mysql_query($sql);
+$fl_arr=array();
+while($row=@mysql_fetch_array($reslut)){
+	$fl_arr[$row['id']]=$row;
+}
+
+
+foreach ($fl_arr as $k=>$v){
+	//二级栏目
+	if($v['parentid']==28) $v_2[]=$v;
+	//三级栏目
+	foreach($v_2 as $k=>$v2){
+		if($v2['id']==$v['parentid']) $v_3[]=$v;
+	}
+}
+
+//dump($v_3);
+
+$jjsfdsid=$Categorys['28']['arrchildid'];
+$where='catid in ('.$jjsfdsid.') and status=1';
+
+
+if($key) $where=$where.' and title LIKE \'%'.$key.'%\'';
+if($keycatid) $where='catid=\''.$keycatid.'\' and '.$where;
+?>
+
+
+<include file="Fy:c_s" />
+<include file="Page:header" />
+<script src="{$xl_url_mod}js/jquery.min.js"></script>
+
+  <div class="left_nav">
+    <ul><!--左边分类列表--><li><a href="javascript:;" onclick="left_ajax('0','1');">全部分类</a></li><p><img src="{$xl_url_mod}images/next.png" width="9" height="10" /></p>
+	<?php foreach($v_3 as $k=>$v){
+		echo '<li><a href="javascript:;" onclick="left_ajax(\''.$v['id'].'\',\'1\');">'.$v['catname'].'</a></li><p><img src="'.$xl_url_mod.'images/next.png" width="9" height="10" /></p>';
+	}?>
+    </ul>
+  </div>
+  
+  <div style=" background-color:#EFEFEF; height:auto; overflow:auto">
+  <div class="centent3" style="margin-top:260px;">
+  <div class="fl" style="width:966px;" id="xl_ajax_pp">
+
+
+
+  <GZ:list catid="28" where="$where" limit="$startCount,$perNumber">
+  
+  <a href="{$r.url}">
+  <div class="pro_pic">
+    <span class="fs16">
+    <div class="mt70">{$r.title}</div>
+    <div class="VIEW">VIEW</div>
+      <div class=""><img src="{$xl_url_mod}images/store_zi2.png" width="238" height="7" /></div>
+    </span>
+  <img src="{$r.thumb}" style="width:322px;" /></div></a>
+</GZ:list>
+
+	<div style="width:100%"><include file="Fy:p_s" /></div>
+</div>
+
+
+
+
+
+
+ 
+
+ 
+
+</div>
+
+  </div>
+
+<script type="text/javascript">
+//获取三级栏目内容
+function left_ajax(n,p){
+    $.ajax( {
+      url: '?spn=ok&key=<?php echo $_GET['key'];?>&keycatid='+n+'&page='+p, //这里是静态页的地址
+      type: "GET", //静态页用get方法，否则服务器会抛出405错误
+	  	  beforeSend: function(){
+		$('#xl_ajax_pp').html('<img src="/GZphp/Tpl/Home/Default/Public/images/2008022817472355.gif">');
+		},
+      success: function(data){
+          var result = $(data).find('#xl_ajax_pp').first().html();
+          //var rrafdsfss= $(data).find('#afdsfss').first().html();
+		  if(result) data=result;
+          $('#xl_ajax_pp').html(data);
+          //$('#afdsfss').html(rrafdsfss);
+          //alert(result);
+      }
+    });
+}
+
+
+
+function ajajaxx(n,m){
+    $.ajax( {
+      url: '/index.php/products/?ajajok='+m+'&limitss='+n, //这里是静态页的地址
+      type: "GET", //静态页用get方法，否则服务器会抛出405错误
+      success: function(data){
+          var result = $(data).find('#xl_ajax_pp').first().html();
+          var rrafdsfss= $(data).find('#afdsfss').first().html();
+          $('#xl_ajax_pp').html(result);
+          $('#afdsfss').html(rrafdsfss);
+          //alert(result);
+      }
+    });
+}
+</script>
+
+<include file="Page:footer" />

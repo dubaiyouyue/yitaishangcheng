@@ -1,0 +1,56 @@
+<?php
+$title_arr_home=array(
+'26'=>'网上商城',
+'27'=>'形象大片',
+'28'=>'最新产品',
+'33'=>'YITAIWM美丽计划',
+'32'=>'YITAIWM联盟',
+'37'=>'YITAIWM联盟',
+'29'=>'关于YITAI',
+'30'=>'资讯',
+);
+
+$all_id=array('26','27','28','29','30','32','33');
+$title_catid=$catid;
+//如果是子栏目
+if(!in_array($catid,$all_id)) $title_catid=$Categorys[$catid]['parentid'];
+
+/*
+dump($Categorys['26']['arrchildid']);
+$now_title_Key=$Categorys[$catid]['parentdir'];
+*/
+if($catid==37) $Categorys['32']['catname']=$title_arr_home['37'];
+foreach ($Categorys as $k=>$v){
+	//dump($v);
+	//echo $title_arr_home[$title_catid];
+	//echo $v['id'].'<br>';
+	//echo $Categorys[$v['id']]['parentid'];
+	if($v['id']==$catid || $v['id']==$title_catid) $v['catname']=$title_arr_home[$title_catid];
+	
+	$css_o='';
+	if(!in_array($v['id'],$all_id)) $css_o='none';
+	if($v['id']==28) $v['url']='/index.php/products1/';
+	if($key && ($v['catname']=='PRODUCTS')) $v['catname']='最新产品';
+	echo '<li style="display:'.$css_o.';"><a href="'.$v['url'].'" onmouseover="tttd(\''.$title_arr_home[$v['id']].'\',\''.$v['id'].'\',\''.$v['catname'].'\');" id="aaaa'.$v['id'].'" onmouseout="tttdd(\''.$title_arr_home[$v['id']].'\',\''.$v['id'].'\',\''.$v['catname'].'\');" id="aaaa'.$v['id'].'">'.$v['catname'].'</a></li>';
+}
+?>
+
+<script>
+function tttd(s,n,m){
+	$('#aaaa'+n).html(s);
+}
+function tttdd(s,n,m){
+	$('#aaaa'+n).html(m);
+}
+</script>
+
+<!--
+<li><a href="/index.php/store/" title="网上商城">STORE</a></li>
+<li><a href="/index.php/image/" title="形象大片">IMAGE</a></li>
+<li><a href="/index.php/products/" title="最新产品">PRODUCTS</a></li>
+<li><a href="" title="YITAIWM会员">VIP</a></li>
+<li><a href="/index.php/plan/" title="YITAIWM美丽计划">BEAUTIFUL PLAN</a></li>
+<li><a href="/index.php/union/" title="YITAIWM联盟">YITAIWM UNION</a></li>
+<li><a href="/index.php/about/" title="关于YITAI">ABOUT YITAIWM</a></li>
+<li><a href="/index.php/news/" title="资讯">NEWS</a></li>
+-->

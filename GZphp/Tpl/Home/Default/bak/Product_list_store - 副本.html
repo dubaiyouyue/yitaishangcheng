@@ -1,0 +1,30 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+
+  
+  <div class="left_nav">
+    <ul><!--左边分类列表-->
+	
+  <li><a href="/index.php/store/">全部分类</a></li>
+  <p><img src="{$xl_url_mod}images/next.png" width="9" height="10" /></p>		
+	
+	
+<GZ:subcat catid="bcid">
+  <li><a href="{$r.url}">{$r.catname}</a></li>
+  <p><img src="{$xl_url_mod}images/next.png" width="9" height="10" /></p>
+</GZ:subcat>
+    </ul>
+  </div>
+  
+
+  
+<div class="centent5 pb35" style="margin-top:180px;">{php $where = 'status=1';}
+  <GZ:list catid="catid" limit="99999" where="$where" order="posid desc,listorder desc,id desc"><?php //dump($r);?>
+	<a href="{$r.url}">
+	<div class="store_pic"><span class="fs16">{$r.title}<img src="{$xl_url_mod}images/store_zi.png" class="mt15" width="270" height="28" /></span><img src="{$r.thumb}" style="width:328px;" /></div></a>
+  </GZ:list>
+ 
+</div>
+
+<include file="Page:footer" />

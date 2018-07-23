@@ -1,0 +1,74 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+<style>.sou_jieguo li{ height:40px; line-height:40px; overflow:hidden; border-bottom:1px dotted #ccc } </style>
+<GZ:list sql="select * from gz_slide_data where id = '36' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+<style>
+.image_bg {
+background: url({$ewmpic}) no-repeat center bottom #fefefe;
+    height: 135px;
+    width: 100%;
+    padding-top: 138px;
+    z-index: 8;
+}
+</style>
+
+<div class="image_bg"></div>
+
+<div class="centent4">
+  <div class="mt20 fs16 lh30">"<b class="fcred"><?php echo $_GET['keyword'];?></b>"的搜索结果：</div>
+  
+  <div class="mt20 pb60 fs14">
+    <ul class="sou_jieguo">
+	
+	<?php
+		if(!$totalPage) echo '暂无搜索内容';
+		//dump($list);
+		else{ 
+		foreach($list as $k=>$v){
+	?>
+      <li><span class="fc999 fr"><?php echo toDate($v['createtime'],'Y-m-d');?></span><span class="fcorg mr7">[<?php
+		echo $Categorys[$v['catid']]['catname'];
+	  ?>]</span><a href="<?php echo $v['url'];?>"><?php echo $v['title'];?></a></li>
+      
+	  <?php
+		}}
+	  ?>
+    </ul>
+	
+	
+	
+	<div class="manu">
+<?php
+$p=$_GET['p']+0;
+if ($p != 1) { //页数不等于1 
+?> 
+<a href="/index.php?g=Home&m=Search&a=index&keyword=<?php echo $_GET['keyword'];?>&p=<?php echo $p-1;?>">上一页</a> <!--显示上一页--> 
+<?php 
+} 
+for ($i=1;$i<=$totalPage;$i++) { //循环显示出页面 
+if($i==$p){
+?> 
+<span class="current"><?php echo $i;?></span><?php }else{?>
+<a href="/index.php?g=Home&m=Search&a=index&keyword=<?php echo $_GET['keyword'];?>&p=<?php echo $i;?>"><?php echo $i ;?></a> 
+<?php }
+} 
+if ($p<$totalPage) { //如果page小于总页数,显示下一页链接 
+?> 
+<a href="/index.php?g=Home&m=Search&a=index&keyword=<?php echo $_GET['keyword'];?>&p=<?php echo $p+1;?>">下一页</a> 
+<?php 
+}  
+?> 
+</div>
+
+
+
+  </div>
+  
+</div>
+<include file="Page:footer" />

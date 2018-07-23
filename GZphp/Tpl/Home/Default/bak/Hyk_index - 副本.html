@@ -1,0 +1,91 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+<style>
+    body{  background: url({$img_url}/images/vip_bg.jpg) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;background-attachment: fixed;}
+</style>
+
+<!-----------内容--------->
+  <form name="myform" id="myform" action="{:URL('Home-Hyk/edit')}" method="post">
+    <div class="centent5 pb80" style="height:auto; overflow:auto">
+      
+	  
+	  
+	  <include file="U:l" />
+	  
+	  
+	  
+      <div class="fr w680">
+        <div class="bbs1lan h30 fs14">
+          <div class="fl VIP_bk1_on">在线申请会员卡</div>
+        </div>
+        <div class="mt50 h30 lh30">
+          <div class="tar w60 fl">申请卡类</div>
+          <div class="fl ml15"><input type="radio" name="aplication" id="radio2" value="意璨卡" />意璨卡</div>
+          <div class="fl ml15"><input type="radio" name="aplication" id="radio2" value="意尚卡" />意尚卡</div>
+          <div class="fl ml15"><a href="javascript:;" onclick="assssthh();" class="tdun fcred">会员卡说明</a></div>
+        </div>
+        <div class="mt15 h30 lh30">
+          <div class="tar w60 fl"><b class="fcred">*</b>真实姓名</div>
+          <div class="fl ml15"><input type="text" name="name" class=" w200 select2 " /></div>
+        </div>
+        <div class="mt15 h30 lh30">
+          <div class="tar w60 fl">性别</div>
+          <div class="fl ml15"><input type="radio" name="sex" id="radio2" value="男" />男</div>
+          <div class="fl ml15"><input type="radio" name="sex" id="radio2" value="女" />女</div>
+        </div>
+        <div class="mt15 h30 lh30">
+          <div class="tar w60 fl"><b class="fcred">*</b>身份证号</div>
+          <div class="fl ml15"><input type="text" name="ssffzz" class=" w200 select2 " /></div>
+        </div>
+        <div class="mt15 h30 lh30">
+          <div class="tar w60 fl"><b class="fcred">*</b> Email</div>
+          <div class="fl ml15">{$new_mm.email}</div>
+          <div class="fl ml20"><a href="/index.php?g=Home&m=User&a=edit" class="fcred">修改</a></div>
+        </div>
+        <div class="mt15 h30 lh30">
+          <div class="tar w60 fl"><b class="fcred">*</b> 手机号</div>
+          <div class="fl ml15">{$new_mm.mobile}</div>
+          <div class="fl ml20"><a href="/index.php?g=Home&m=User&a=medit" class="fcred">修改</a></div>
+        </div>
+        <div class="mt15 h35 lh30">
+          <div class="tar w60 fl"><b class="fcred">*</b> 生日</div>
+          <include file="R:qh" />
+        </div>
+        <div class="mt15 h30 lh30">
+          <div class="tar w60 fl"><b class="fcred">*</b>职业</div>
+          <div class="fl ml15"><input name="zy" type="text" class=" w200 select2 " /></div>
+        </div>
+        <div class="mt15 h30 lh30">
+          <div class="tar w60 fl"><b class="fcred">*</b>月收入</div>
+          <div class="fl ml15"><select name="yss" class="select1">
+		  <option>2000以下</option>
+		  <option>2000~5000</option>
+		  <option>5000~1万</option>
+			<option>1万以上</option>
+		  </select>元/月</div>
+        </div>
+        <div class="ml75 mt20"><input class="red_kuai1" type="submit" value="提交申请" /></div>
+      </div>
+    </div>
+  </form>
+<!-----------内容--------->
+<script>
+function assssthh(){
+layer.open({
+	area: ['1000px', '600px'],
+title :'会员卡说明',
+    type: 2, 
+	content: ['/index.php/ffsshykssmi/']
+}); 
+}
+</script>
+<include file="Page:footer" />

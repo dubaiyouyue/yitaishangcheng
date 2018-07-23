@@ -1,0 +1,83 @@
+<php>$xl_url_mod='/GZphp/Tpl/Home/Default/Public/';</php>
+
+
+
+<?php 
+$the_host = $_SERVER['HTTP_HOST'];//取得当前域名 
+
+
+if($the_host == 'stxlyitai.test.abc123.gxtkr.com')//如果域名不是带www的网址那么进行下面的301跳转 
+{ 
+	$newcc=2;
+} 
+?>
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{$seo_keywords}">
+<meta name="description" content="{$seo_description}">
+<title>{$seo_title}</title>
+<link href="{$xl_url_mod}css{if $newcc==2}new{/if}/style.css?v=12" rel="stylesheet" type="text/css" />
+<link href="/GZphp/Tpl/Home/Default/Public/css{if $newcc==2}new{/if}/new.css" rel="stylesheet" type="text/css" />
+<style>*{outline:none;}</style>
+</head>
+
+<?php
+if(!$_GET['vnews']){
+?>
+<script src="{$xl_url_mod}js/jquery.min.js"></script>
+<script type="text/javascript" src="/layer/layer.js"></script>
+<?php }?>
+
+
+<body>
+
+
+<?php
+$gmmm=$_GET['mmm'];
+if($catid=='30' && ACTION_NAME=='show') $gmmm='iframe';
+$keyword=$_GET['keyword'];
+?>
+
+{if $gmmm!="iframe"}
+<div class="header">
+  <a href="/index.php/home/"><div class="fl logo"></div></a>
+<!--<div class="fl logo"><a href="/index.php/home/"><img src="/GZphp/Tpl/Home/Default/web/images/logo.png" width="145" height="89" /></a></div>-->
+<div class="search">
+    <input type="text" id="search" value="{if $keyword}{$keyword}{else}SEARCH{/if}" onfocus="if(this.value=='SEARCH'){this.value='';}"  onblur="if(this.value==''){this.value='SEARCH';}" onkeydown="checkForm1(event);" />
+    <input type="button" id="search_btn" onclick="checkForm();" />
+</div>
+
+
+
+<div class="menu_index"><ul><include file="Xl:l" /></ul></div>
+</div>
+{/if}
+
+
+<script>
+function checkForm(){
+  var fsffnr=document.getElementById("search").value;
+  if(!fsffnr || (fsffnr=='SEARCH')){
+		 //alert("请输入关键词搜索。");
+		 //layer.msg('请输入关键词搜索！');
+		 layer.tips('请输入关键词搜索！', '#search', {
+    tips: [1, '#3595CC'],
+    time: 4000
+});
+		 return false;
+  }
+  
+	 window.location.href='/index.php?g=Home&m=Search&a=index&p=1&keyword='+fsffnr;  
+}
+function checkForm1(event){ 
+e = event ? event :(window.event ? window.event : null); 
+if(e.keyCode==13){ 
+checkForm();
+} 
+} 
+</script>

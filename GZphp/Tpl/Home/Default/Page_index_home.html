@@ -1,0 +1,409 @@
+{__NOLAYOUT__}
+<php>$xl_url_mod='/GZphp/Tpl/Home/Default/Public/';</php>
+  <GZ:list sql="select * from gz_slide_data where fid = '5' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+
+<?php 
+$the_host = $_SERVER['HTTP_HOST'];//取得当前域名 
+
+
+if($the_host == 'stxlyitai.test.abc123.gxtkr.com')//如果域名不是带www的网址那么进行下面的301跳转 
+{ 
+	$newcc=2;
+} 
+?>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>意态--首页</title>
+<link href="{$xl_url_mod}css{if $newcc==2}new{/if}/style.css" rel="stylesheet" type="text/css" />
+<!-- head中需要引入的部分 begin -->
+<link href="{$xl_url_mod}css{if $newcc==2}new{/if}/lanrenzhijia.css" rel="stylesheet" type="text/css">
+<script src="{$xl_url_mod}js/jquery.min.js"></script>
+<script src="{$xl_url_mod}js/js_banner/jquery-migrate-1.2.1.min.js"></script>
+<script src="{$xl_url_mod}js/js_banner/transit.js"></script>
+<script src="{$xl_url_mod}js/js_banner/touchSwipe.js"></script>
+<script src="{$xl_url_mod}js/js_banner/simpleSlider.js"></script>
+<script src="{$xl_url_mod}js/js_banner/backstretch.js?v=123212"></script>
+
+
+<link href="/GZphp/Tpl/Home/Default/Public/css{if $newcc==2}new{/if}/new.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/layer/layer.js"></script>
+<style>
+#myform .w680 {
+    width: 760px;
+}
+/*底部弹出联系我们窗口*/
+	.xlimgall{
+		position: absolute;
+		bottom: 28px;
+		background: #fff;
+		right: 39px;
+		display:none;
+		width:120px;
+	}
+	.xlimgouto{
+		float:left;
+		padding: 5px;
+	}
+	.erweima a span {
+		z-index: 9;
+	}
+</style>
+<?php
+$sql="SELECT * FROM  gz_slide_data WHERE  lang = '1'  AND STATUS = '1' and fid = '1' ORDER BY listorder desc,id DESC";
+$result=@mysql_query($sql);
+$banner_arr=array();
+$i=0;
+while($row=@mysql_fetch_array($result)){
+  $banner_arr[$i]['pic']=$row['pic'];
+  $i++;
+}
+?>
+
+
+
+<script>
+  
+var mainslider;
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+$(document).ready(function(){
+    var options = {
+        slides: '.slide', // The name of a slide in the slidesContainer
+        swipe: true,    // Add possibility to Swipe > note that you have to include touchSwipe for this
+        slideTracker: true, // Add a UL with list items to track the current slide
+        slideTrackerID: 'slideposition', // The name of the UL that tracks the slides
+        slideOnInterval: false, // Slide on interval
+        interval: 9000, // Interval to slide on if slideOnInterval is enabled
+        animateDuration: 1000, // Duration of an animation
+        animationEasing: 'ease', // Accepts: linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
+        pauseOnHover: false // Pause when user hovers the slide container
+    };
+
+    $(".slider").simpleSlider(options);
+    mainslider = $(".slider").data("simpleslider");
+    /* yes, that's all! */
+
+    $(".slider").on("beforeSliding", function(event){
+        var prevSlide = event.prevSlide;
+        var newSlide = event.newSlide;
+        $(".slider .slide[data-index='"+prevSlide+"'] .slidecontent").fadeOut();
+        $(".slider .slide[data-index='"+newSlide+"'] .slidecontent").hide();
+    });
+
+    $(".slider").on("afterSliding", function(event){
+        var prevSlide = event.prevSlide;
+        var newSlide = event.newSlide;
+        $(".slider .slide[data-index='"+newSlide+"'] .slidecontent").fadeIn();
+    });
+
+    //$(".slide#first").backstretch('{$banner_arr.0.pic}');
+	<?php
+		foreach($banner_arr as $kkv=>$vkk){
+			echo '$(".slide#first'.$kkv.'").backstretch(\''.$vkk['pic'].'\');';
+		}
+	?>
+    //$(".slide#sec").backstretch('{$banner_arr.1.pic}');
+    //$(".slide#thirth").backstretch('{$banner_arr.2.pic}');
+    //$(".slide#fourth").backstretch('{$banner_arr.3.pic}');
+
+    $('.slide .backstretch img').on('dragstart', function(event) { event.preventDefault(); });
+
+    /*
+	$(".slidecontent").each(function(){
+        $(this).css('margin-top', -$(this).height()/2);
+    });
+	*/
+});
+
+</script>
+<?php
+	if($_GET['iffriframe']=='ok')
+	echo ' <base target="_blank" />';
+?>
+<!-- head中需要引入的部分end -->
+</head>
+
+<body id="callallin">
+<div class="header"><a href="/" style="display: block;height: 130px;background:url(/demo/images/no.GIF);">
+<!--<div class="fl logo"><a href="/index.php/home/"><img src="{$xl_url_mod}images/logo.png" width="145" height="86" /></a></div>-->
+</a></div>
+
+<div class="menu_home"><ul><include file="Xl:l" /></ul></div>
+  
+ <div style="position:absolute; width:380px; height:341px; right:50px; top:10%; z-index:102"><img src="{$xl_url_mod}images/word.png" width="380" height="341" /></div> 
+  
+<!-- 代码 begin -->
+<div class='pagewrap' id="hmain" style="margin-top: 130px;position: fixed;width: 100%;">
+  <div class='pageblock' id='fullscreen'>
+    <div class='slider'>
+     
+	<?php
+		foreach($banner_arr as $kkv=>$vkk){ 
+			echo '<div class="slide" id="first'.$kkv.'"><div class="slidecontent"></div></div>';
+		}
+	?>
+    </div>
+  </div>
+</div>
+</div>
+<!-- 代码 end -->
+
+<div class="bottom_nav">
+<div class="copyright_home">COPYRIGHT © YITAI RIGHTS RESERVED. POWERED BY <a href="#" target="_blank" class="tdun">RESONANCE</a> .</div>
+
+
+
+
+{if $new_mm['id']}
+<div class="right_bk lh18 h20" style="width:auto;">
+  <div class="erweima fr"><a href="javascript:;"><span><img src="{$ewmpic}" width="55" height="55" /></span><img src="{$ewmpicsmall}" width="15" height="15"></a></div>
+  
+  
+  
+  
+   <div class="xlimgall">
+	<div class="xlimgouto"><a href="{$xlwb}" target="_blank"><img src="/demo/images/sina.png" width="28" height="25" title="点击关注意态官方新浪微博" /></a></div>
+	<div class="xlimgouto"><a href="{$txwb}" target="_blank"><img src="/demo/images/tenxun.png" width="25" height="25"  title="点击关注意态官方腾讯微博"/></a></div>
+	<div class="xlimgouto"><a href="mailto:{$site_email}" target="_blank"><img src="/demo/images/email.png" width="25" height="25"  title="官方邮箱：{$site_email}"/></a></div>
+	<div style="position: absolute; padding: 3px; right:0px"><a href="javascript:;" onclick="shaoookf('2');"><img src="/demo/images/close.gif" /></a></div>
+  </div>
+  
+  
+  <div class="fr mr12"><a href="javascript:;" onclick="shaoookf('1');"><img src="/demo/images/deng.jpg" width="22" height="19" />联系</a></div>
+  
+  
+  
+  
+  
+  <div class="fr mr12"><a href="http://wpa.qq.com/msgrd?v=3&uin={$qq}&site=qq&menu=yes" target="_blank"><img src="/demo/images/kf.jpg" width="22" height="19" />客服</a></div>
+  
+  
+  
+  
+  <!--<div class="fr mr12">&nbsp;SOUND：</div>-->
+  <div class="fr mr12"><a href="{:URL('User-Login/logout')}">退出</a></div>
+  <div class="fr mr12">欢迎回来，<a href="/index.php?g=Home&m=User&a=index" class="fcred">{$new_mm.username}</a>！</div>
+
+    
+
+
+  <a href="/index.php?g=Home&m=Cart&a=index"><div class="fr mr12 car_shu">{$nnnnccgg}</div>
+  <div class="fr">&nbsp;购物车&nbsp;</div>
+  <div class="fr"><img src="/demo/images/car.png" width="22" height="19"></div></a>
+</div>
+{else}
+<div class="right_bk lh18 h20" style="width:auto;">
+  <div class="erweima fr"><a href="javascript:;"><span><img src="{$ewmpic}" width="55" height="55" /></span><img src="{$ewmpicsmall}" width="15" height="15"></a></div>
+  
+  
+  
+  
+  
+   <div class="xlimgall">
+	<div class="xlimgouto"><a href="{$xlwb}" target="_blank"><img src="/demo/images/sina.png" width="28" height="25" title="点击关注意态官方新浪微博" /></a></div>
+	<div class="xlimgouto"><a href="{$txwb}" target="_blank"><img src="/demo/images/tenxun.png" width="25" height="25"  title="点击关注意态官方腾讯微博"/></a></div>
+	<div class="xlimgouto"><a href="mailto:{$site_email}" target="_blank"><img src="/demo/images/email.png" width="25" height="25"  title="官方邮箱：{$site_email}"/></a></div>
+	<div style="position: absolute; padding: 3px; right:0px"><a href="javascript:;" onclick="shaoookf('2');"><img src="/demo/images/close.gif" /></a></div>
+  </div>
+  
+  
+  <div class="fr mr12"><a href="javascript:;" onclick="shaoookf('1');"><img src="/demo/images/deng.jpg" width="22" height="19" />联系</a></div>
+  
+  
+  
+  
+  
+  <div class="fr mr12"><a href="http://wpa.qq.com/msgrd?v=3&uin={$qq}&site=qq&menu=yes" target="_blank"><img src="/demo/images/kf.jpg" width="22" height="19" />客服</a></div>
+  
+  
+  
+  
+  
+  <!--<div class="fr mr12">&nbsp;SOUND：</div>-->
+  <div class="fr mr12"><a href="javascript:;" onclick="ddllff();">登陆</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;" onclick="ddllffrr();">注册</a></div>
+  <a href="javascript:;" onclick="ddllff();"><div class="fr mr12 car_shu">0</div>
+  <div class="fr">&nbsp;购物车&nbsp;</div>
+  <div class="fr"><img src="/demo/images/car.png" width="22" height="19" /></div></a>
+</div>
+{/if}
+</div>
+
+
+
+<script>
+var hmain = document.getElementById("hmain");
+var doc = (document.compatMode != "CSS1Compat") ? document.body : document.documentElement;
+
+var h = Math.max(doc.scrollHeight, doc.clientHeight);// 获取浏览器内容高度
+hmain .style.height = ( h - 165) + 'px';// 设置iframe的高度
+
+
+
+
+
+function shaoookf(n){
+	if(n==1) $('.xlimgall').show('slow');
+	if(n==2) $('.xlimgall').hide('slow');
+}
+
+    function ddllff(){
+	//登录
+        //alert('21321321321321');
+        layajax('/index.php/login/?mmm=iframe');
+    }
+
+
+    function ddllffrr(){
+	//注册
+        //alert('21321321321321');
+        layajaxrr('/index.php/Registered/?mmm=iframe');
+    }
+
+
+
+    function layajaxrr(url){
+	//注册弹窗
+        //Ajax获取
+		layer.closeAll(); 
+        $.post(url, {}, function(str){
+            layer.open({
+                title: false,
+                shadeClose:false,
+                area: ['800px', '580px'],
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+        });
+
+    }
+
+    function layajaxtt(url){
+	
+        //Ajax获取
+        $.post(url, {}, function(str){
+            layer.open({
+                title:'上传头像！',
+                shadeClose:false,
+
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+        });
+
+    }
+    function layajax(url){
+	//登录弹窗
+        //Ajax获取
+		layer.closeAll(); 
+        $.post(url, {}, function(str){
+		
+            layer.open({
+                title: false,
+                shadeClose:false,
+                area: ['800px', '480px'],
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+        });
+
+    }
+
+
+
+
+/** Event handler for mouse wheel event.
+		 *鼠标滚动事件
+		 */
+		var wheel = function(event) {
+			var delta = 0;
+			if (!event) /* For IE. */
+				event = window.event;
+			if (event.wheelDelta) { /* IE/Opera. */
+				delta = event.wheelDelta / 120;
+			} else if (event.detail) {
+				/** Mozilla case. */
+				/** In Mozilla, sign of delta is different than in IE.
+				 * Also, delta is multiple of 3.
+				 */
+				delta = -event.detail / 3;
+			}
+			/** If delta is nonzero, handle it.
+			 * Basically, delta is now positive if wheel was scrolled up,
+			 * and negative, if wheel was scrolled down.
+			 */
+			if (delta)
+				handle(delta);
+			/** Prevent default actions caused by mouse wheel.
+			 * That might be ugly, but we handle scrolls somehow
+			 * anyway, so don't bother here..
+			
+			if (event.preventDefault)
+				event.preventDefault();
+				 
+			event.returnValue = false;*/
+			//return false;
+		}
+
+		/** Initialization code. 
+		 * If you use your own event management code, change it as required.
+		 */
+		if (window.addEventListener) {
+			/** DOMMouseScroll is for mozilla. */
+			window.addEventListener('DOMMouseScroll', wheel, false);
+		}
+		/** IE/Opera. */
+		window.onmousewheel = document.onmousewheel = wheel;
+
+		/** This is high-level function.
+		 * It must react to delta being more/less than zero.
+		 */
+		 var iggg=0;
+		var handle = function(delta) {
+			//var random_num = Math.floor((Math.random() * 100) + 50);
+			if (delta < 0) {
+				iggg=++iggg;
+				//alert(iggg);
+				if(iggg==2) {
+					mainslider.nextSlide();
+						iggg=0;
+					}
+				
+				//alert("鼠标滑轮向下滚动：" + delta + "次！"); // 1
+				//$("btn_next_pic").onclick(random_num);
+				//window.location.href="/index.php/home/"; 
+				
+				return false;
+			} else {
+				//alert("鼠标滑轮向上滚动：" + delta + "次！"); // -1
+				//$("btn_last_pic").onclick(random_num);
+				iggg=++iggg;
+				//alert(iggg);
+				if(iggg==2) {
+					mainslider.prevSlide();
+						iggg=0;
+					}
+				
+				//delta=0;
+				return false;
+			}
+		}
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

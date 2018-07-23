@@ -1,0 +1,29 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+<div class="centent1 tacn" style="margin-top:160px">
+  <div class="mb20"><img src="{$thumb}" width="1090" height="114"></div>
+
+<?php 
+$content=str_replace("<br />","",$content);
+$content=str_replace("&nbsp;","",$content);
+echo html_entity_decode($content);
+?>
+ <div class="adr_warp">
+    <div class="call">{$wen_tel}</div>
+    <div class="fs14">{$wen_address}</div>
+  </div>
+  <div class="fc64 fs14 mt20">{$site_url}&nbsp;&nbsp;&nbsp;E: {$email}</div>
+  <div class="share">
+    <div class="fl mt7 ml25"><a href="{$xlwb}"><img src="/GZphp/Tpl/Home/Default/web/images/sina.png" width="35" height="28" title="点击关注意态官方新浪微博"></a></div>
+    <div class="fl mt7 ml25"><a href="{$txwb}"><img src="/GZphp/Tpl/Home/Default/web/images/tenxun.png" width="28" height="28" title="点击关注意态官方腾讯微博"></a></div>
+    <div class="fl mt7 ml25"><a href="{$mdwz}"><img src="/GZphp/Tpl/Home/Default/web/images/map.png" width="18" height="28" title="点击查看意态门店地址"></a></div>
+  </div>
+  
+</div>
+
+
+<include file="Page:footer" />
+
+
+
+

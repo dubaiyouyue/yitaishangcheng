@@ -1,0 +1,117 @@
+{__NOLAYOUT__}
+<?php
+$sp=$_GET['sp']+0;
+if(!$sp) $sp=1;
+$sql='select * from gz_category where parentid=28';
+$result=@mysql_query($sql);
+$i=0;
+$lm_all=array();
+while($row=@mysql_fetch_array($result)){
+$i++;
+	$lm_all[$i]=$row;
+	
+}
+$ni=$sp;
+$nx=$sp+1;
+$ns=$sp-1;
+if($nx>$i) $nx=$i;
+if($ns<1) $ns=1;
+
+$wsshh='status=1';
+?>
+<include file="Fy:c" />
+<include file="Page:header" />
+
+
+  <div class="left_nav">
+    <ul><!--左边分类列表-->
+	
+
+	<li><a href="javascript:;" onclick="left_ajax('{$r.url}','1');">全部分类</a></li><p><img src="{$xl_url_mod}images/next.png" width="9" height="10" /></p>
+<GZ:subcat catid="catid">
+  <li><a href="javascript:;" onclick="left_ajax('{$r.url}','1');">{$r.catname}</a></li>
+  <p><img src="{$xl_url_mod}images/next.png" width="9" height="10" /></p>
+</GZ:subcat>
+    </ul>
+  </div>
+  
+  <div style=" background-color:#EFEFEF; height:auto; overflow:auto; min-height:500px;">
+  <div style="width:900px; margin:160px auto 0;">
+  <div style="width:900px;" id="xl_ajax_pp">
+
+  <GZ:list catid="catid" where="$wsshh" limit="$startCount,$perNumber">
+  
+  <a href="{$r.url}">
+  <div class="pro_pic">
+    <span class="fs16">
+    <div class="mt70">{$r.title}</div>
+    <div class="VIEW yuan">VIEW</div>
+      <div class=""><img src="{$xl_url_mod}images/store_zi2.png" width="220" height="7" /></div>
+    </span>
+  <img src="{$r.thumb}" style="width:298px;" /></div></a>
+</GZ:list>
+
+
+	<div style="width:100%"><include file="Fy:p" /></div>
+</div>
+
+
+</div>
+
+  <div style="width:105px; height:350px; position:fixed; top:160px; right:10px;">
+   <div class="pro_title_pic">
+     <div class="pro_title tacn">
+       <div class="year">{$keywords}</div>
+       <div class=" mt10">{$description}</div>
+       <div class="mt20">{$title}</div>
+     </div>
+     <div class="fanye" id="afdsfss">
+	 
+	 
+    <a href="{$lm_all.$ns.url}?spn=ok&sp={$ns}" class="fanye_on">0{$ni}</a>/<a href="{$lm_all.$nx.url}?spn=ok&sp={$nx}">0{$nx}</a>
+     
+
+     </div>
+   <img src="{$image}" width="105" height="165" /></div>
+ </div>
+
+  </div>
+
+<script type="text/javascript">
+//获取三级栏目内容
+function left_ajax(n,p){
+    $.ajax( {
+      url: n+'?spn=ok&page='+p, //这里是静态页的地址
+      type: "GET", //静态页用get方法，否则服务器会抛出405错误
+	  beforeSend: function(){
+		$('#xl_ajax_pp').html('<img src="/GZphp/Tpl/Home/Default/Public/images/2008022817472355.gif">');
+		},
+      success: function(data){
+          var result = $(data).find('#xl_ajax_pp').first().html();
+          //var rrafdsfss= $(data).find('#afdsfss').first().html();
+		  if(result) data=result;
+          $('#xl_ajax_pp').html(data);
+          //$('#afdsfss').html(rrafdsfss);
+          //alert(result);
+      }
+    });
+}
+
+
+
+function ajajaxx(n,m){
+    $.ajax( {
+      url: '/index.php/products/?ajajok='+m+'&limitss='+n, //这里是静态页的地址
+      type: "GET", //静态页用get方法，否则服务器会抛出405错误
+      success: function(data){
+          var result = $(data).find('#xl_ajax_pp').first().html();
+          var rrafdsfss= $(data).find('#afdsfss').first().html();
+          $('#xl_ajax_pp').html(result);
+          $('#afdsfss').html(rrafdsfss);
+          //alert(result);
+      }
+    });
+}
+</script>
+
+<include file="Page:footer" />

@@ -1,0 +1,109 @@
+
+<style>
+
+/*--------------S-名校切换----------*/
+.infiniteCarousel {
+  width: 310px;
+  position: relative; 
+ 
+}
+
+.infiniteCarousel .wrapper {
+  /* .infiniteCarousel width - (.wrapper margin-left + .wrapper margin-right) */
+  overflow: auto;
+  width:310px;
+  height:70px;
+  position: absolute;
+  
+
+  
+
+}
+
+
+
+.infiniteCarousel .wrapper ul {
+  width:310px; /* single item * n */
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+  margin:0;
+  padding:0;
+  position: absolute;
+  top: 0;
+}
+
+.infiniteCarousel ul li {
+  display:block;
+  float:left;
+  padding-right:12px;
+  height:68px;
+  width:68px;
+
+}
+
+.infiniteCarousel ul li img {}
+
+.infiniteCarousel ul li a img {
+  display:block;
+}
+
+.infiniteCarousel .arrow {
+  display: block;
+  height: 11px;
+  width: 21px;
+  background:url(/demo/pro_left.jpg) 0 no-repeat;
+  position: absolute;
+  margin-top:-38px;
+  cursor: pointer;
+  outline: 0;
+}
+
+.infiniteCarousel .forward {
+  background:url(/demo/pro_right.jpg) 0 no-repeat;
+  right: -8px;
+}
+
+.infiniteCarousel .back {
+
+  right: 10px;
+}
+
+.infiniteCarousel .forward:hover {
+  background-position: 0 -24px;
+}
+
+.infiniteCarousel .back:hover {
+  background-position: 0 -72px;
+}
+.infiniteCarousel .wrapper ul li a p { height:24px; display: block; text-align:center; color:#444; line-height:24px;}
+.infiniteCarousel .wrapper ul li a:hover p { color:#125A96;}
+/*--------------E-名校切换----------*/
+
+</style>
+
+
+<!--S-公司活动-js-->
+				<script  src="/demo/jquery22.js" type="text/javascript"></script>
+				<!--E-公司活动-js-->
+
+
+<div class="infiniteCarousel">
+      <div class="wrapper" style="overflow: hidden;">
+        <ul style="width: 9999px;"><!--个数为6的倍数-->
+		
+		<?php
+			foreach($tjdp_arr as $k=>$v){
+				echo '<li class=""><a href="'.$v['url'].'"><img src="'.$v['thumb'].'" width="68" height="68" /></a></li>';
+			}
+		?>
+		
+                
+  
+  
+  
+  
+  
+ </ul> 
+ </div><a href="javascript:;" class="arrow back"></a><a href="javascript:;" class="arrow forward"></a>
+ </div>

@@ -1,0 +1,100 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+
+  
+  <div class="left_nav">
+    <ul><!--左边分类列表-->
+	
+  <li><a onmouseover="sssfdfshowall();" href="/index.php/store/">全部分类</a></li>
+  <p><img src="{$xl_url_mod}images/next.png" width="9" height="10" /></p>		
+
+<?php
+		foreach($Categorys as $kc=>$vc){
+			if($vc['parentid']==26) {
+				echo '<li class="xsdfdfind"><a onmouseover="sssfdfshow(\''.$vc['id'].'\');" href="'.$vc['url'].'" >'.$vc['catname'].'</a><ul class="xsdfdf" id="xsdfdf'.$vc['id'].'" style="display: none;">';
+				$ccarr_arr=explode(',',$Categorys[$vc['id']]['arrchildid']);
+				//dump($ccarr_arr);
+					foreach($ccarr_arr as $ka=>$va){
+						if($va!=$vc['id']){
+							echo '<li style="padding-left: 9px;"><a href="'.$Categorys[$va]['url'].'" >'.$Categorys[$va]['catname'].'</a></li>';
+						}
+						//echo $va['catname'];
+					}
+				echo '</ul></li><p><img src="'.$xl_url_mod.'images/next.png" width="9" height="10" /></p>';
+			}
+		}
+	?>
+
+
+
+
+
+
+
+
+
+    </ul>
+  </div>
+  
+<script>
+
+
+function sssfdfshowall(){
+	$('.xsdfdfind').find('.xsdfdf').each(function(){ 
+		//alert($(element).text()); 
+		$('.xsdfdf').hide('slow');
+	});
+}
+function sssfdfshow(n){
+	
+	//$('#xsdfdf'+n).removeClass('.xsdfdf');
+	
+	$('.xsdfdfind').find('.xsdfdf').each(function(){ 
+		//alert($(element).text()); 
+		name = $(this).attr('id');
+		//alert(name)
+		if(name!='xsdfdf'+n) $('#'+name).hide('slow');
+	});
+	
+	
+	//$('#xsdfdf'+n).addClass('.xsdfdf');
+	$('#xsdfdf'+n).show('slow');
+	
+}
+
+
+function strooop(ss,n){
+	/*
+	$('.store_pic').find('.fs16').each(function(){ 
+		//alert($(element).text()); 
+		$('.fs16').css('bottom','-145px');
+	});
+	$('#ssdddss'+ss).animate({bottom:'0px'});
+	*/
+  if(n==1) {
+	$('#ssdddss'+ss).animate({bottom:'0px'});
+	return false;
+	}
+  if(n==2) {
+	$('#ssdddss'+ss).animate({bottom:'-145px'});
+	return false;
+	}
+	
+  
+}
+</script>
+  
+<div class="centent5 pb35" style="margin-top:180px;">{php $where = 'status=1';}
+  <GZ:list catid="catid" limit="99999" where="$where" order="posid desc,listorder desc,id desc"><?php //dump($r);?>
+	<a href="{$r.url}">
+	<div class="store_pic"><span style="pointer-events:none;" id="ssdddss{$r.id}" class="fs12">{$r.title}<img src="{$xl_url_mod}images/store_zi.png" class="mt15" width="289" height="23" /></span><img src="{$r.thumb}" style="width:328px;" />
+	
+	<div style="background:url({$xl_url_mod}images/no.gif);top: 0px;width: 328px;height: 330px;position: absolute;" onmouseover="strooop('{$r.id}','1');" onmouseout="strooop('{$r.id}','2');"></div>
+	</div>
+	</a>
+  </GZ:list>
+ 
+</div>
+
+<include file="Page:footer" />

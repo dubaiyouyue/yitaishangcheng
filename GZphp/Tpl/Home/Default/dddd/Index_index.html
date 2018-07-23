@@ -1,0 +1,115 @@
+{__NOLAYOUT__}
+<php>$xl_url_mod='/GZphp/Tpl/Home/Default/web/';</php>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>YITAIWM意态</title>
+<link href="{$xl_url_mod}css/style.css" rel="stylesheet" type="text/css" />
+<script src="{$xl_url_mod}js/jquery.min.js"></script>
+</head>
+<script>
+$(function () {
+  var bootheight = $(window).height(); 
+  $("#bg_loading").css("height",bootheight+"px");
+});
+window.onresize=function(){
+  var bootheight = $(window).height(); 
+  $("#bg_loading").css("height",bootheight+"px");
+ }
+</script>
+
+<?php
+$sql="SELECT * FROM  gz_slide_data WHERE  lang = '1'  AND STATUS = '1' and fid = '2' ORDER BY id DESC LIMIT 1";
+$result=@mysql_query($sql);
+$banner_arr=array();
+$i=0;
+while($row=@mysql_fetch_array($result)){
+  $banner_arr[$i]['pic']=$row['pic'];
+  $i++;
+}
+?>
+
+<style type="text/css">
+	#bg_loading {
+  background: url({$banner_arr.0.pic}) no-repeat center;
+}
+</style>
+
+<body id="bg_loading">
+<div class="yd_logo"><img src="{$xl_url_mod}images/yd_logo.png" width="157" height="94" /></div>
+
+<div class="menu"><ul><include file="Xl:l" /></ul></div>
+  <div class="enter_cn"><a href="/index.php/home/">
+    <div class="enter">ENTER</div>
+    <div class="enter_btn"></div>
+ </a> </div>
+
+
+<div class="wap"><img src="{$xl_url_mod}images/wap.png" width="295" height="7" /></div>
+
+
+
+
+<script>
+/** Event handler for mouse wheel event.
+		 *鼠标滚动事件
+		 */
+		var wheel = function(event) {
+			var delta = 0;
+			if (!event) /* For IE. */
+				event = window.event;
+			if (event.wheelDelta) { /* IE/Opera. */
+				delta = event.wheelDelta / 120;
+			} else if (event.detail) {
+				/** Mozilla case. */
+				/** In Mozilla, sign of delta is different than in IE.
+				 * Also, delta is multiple of 3.
+				 */
+				delta = -event.detail / 3;
+			}
+			/** If delta is nonzero, handle it.
+			 * Basically, delta is now positive if wheel was scrolled up,
+			 * and negative, if wheel was scrolled down.
+			 */
+			if (delta)
+				handle(delta);
+			/** Prevent default actions caused by mouse wheel.
+			 * That might be ugly, but we handle scrolls somehow
+			 * anyway, so don't bother here..
+			 */
+			if (event.preventDefault)
+				event.preventDefault();
+			event.returnValue = false;
+		}
+
+		/** Initialization code. 
+		 * If you use your own event management code, change it as required.
+		 */
+		if (window.addEventListener) {
+			/** DOMMouseScroll is for mozilla. */
+			window.addEventListener('DOMMouseScroll', wheel, false);
+		}
+		/** IE/Opera. */
+		window.onmousewheel = document.onmousewheel = wheel;
+
+		/** This is high-level function.
+		 * It must react to delta being more/less than zero.
+		 */
+		var handle = function(delta) {
+			var random_num = Math.floor((Math.random() * 100) + 50);
+			if (delta < 0) {
+				//alert("鼠标滑轮向下滚动：" + delta + "次！"); // 1
+				//$("btn_next_pic").onclick(random_num);
+				window.location.href="/index.php/home/"; 
+				return;
+			} else {
+				//alert("鼠标滑轮向上滚动：" + delta + "次！"); // -1
+				//$("btn_last_pic").onclick(random_num);
+				
+				return;
+			}
+		}
+</script>
+</body>
+</html>

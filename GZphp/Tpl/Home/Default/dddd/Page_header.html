@@ -1,0 +1,47 @@
+<php>$xl_url_mod='/GZphp/Tpl/Home/Default/Public/';</php>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{$seo_keywords}">
+<meta name="description" content="{$seo_description}">
+<title>{$seo_title}</title>
+<link href="{$xl_url_mod}css/style.css" rel="stylesheet" type="text/css" />
+<link href="/GZphp/Tpl/Home/Default/Public/css/new.css" rel="stylesheet" type="text/css" />
+<style>
+/*-------------------------------------------------------------4.23增加------------翻页代码---------*/
+
+.manu {PADDING:40px 0 25px; TEXT-ALIGN: center; margin:0 auto ; clear:both; font-family:"微软雅黑"}
+.manu A {	BORDER: #e5e5e5 1px solid; color:#777; PADDING:3px 7px;  MARGIN: 3px; background-color:#fff }
+.manu A:hover {	BORDER: #2A324E 1px solid;  COLOR: #2A324E; }
+.manu A:active {	BORDER: #2A324E 1px solid;COLOR: #666; }
+.manu .current {	BORDER: #2A324E 1px solid; PADDING:3px 7px; MARGIN: 3px; BACKGROUND-COLOR: #2A324E; color:#fff;}
+.manu .disabled {	BORDER: #e5e5e5 1px solid; PADDING:3px 7px; background-color:#eee }
+</style>
+</head>
+<script src="{$xl_url_mod}js/jquery.min.js"></script>
+<body>
+<div class="header">
+<div class="fl logo"><a href="/index.php/home/"><img src="/GZphp/Tpl/Home/Default/web/images/logo.png" width="145" height="86" /></a></div>
+<div class="search">
+    <input type="text" id="search" value="{if $key}{$key}{else}SEARCH{/if}" onfocus="if(this.value=='SEARCH'){this.value='';}"  onblur="if(this.value==''){this.value='SEARCH';}" onkeydown="checkForm1(event);" />
+    <input type="button" id="search_btn" onclick="checkForm();" />
+</div>
+<div class="menu_index"><ul><include file="Xl:l" /></ul></div></div>
+<script>
+function checkForm(){
+  var fsffnr=document.getElementById("search").value;
+  if(!fsffnr || (fsffnr=='SEARCH')){
+		 alert("请输入关键词搜索。");
+		 return false;
+  }
+  
+	 window.location.href='/index.php/search/?spn=ok&key='+fsffnr;  
+}
+function checkForm1(event){ 
+e = event ? event :(window.event ? window.event : null); 
+if(e.keyCode==13){ 
+checkForm();
+} 
+} 
+</script>

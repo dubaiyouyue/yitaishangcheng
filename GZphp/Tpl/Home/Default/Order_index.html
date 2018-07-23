@@ -1,0 +1,53 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+<style>
+    body{  background: url({$img_url}/images/vip_bg.jpg) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;}
+</style>
+<!-----------内容--------->
+
+<div class="centent5 pb80" style="height:auto; overflow:auto;">
+
+
+
+
+    <include file="U:l" />
+
+
+    <div class="fr w680">
+        <div class="bbs1lan h30 fs14">
+            <a href="/index.php?g=Home&m=User&a=index"><div class="fl VIP_bk1">个人资料</div></a><!--VIP_bk1_on为当前选择项目--->
+            <a href="/index.php?g=Home&m=Order&a=index"><div class="fl VIP_bk1_on">订单管理</div></a>
+            <a href="/index.php?g=Home&m=Customer&a=index"><div class="fl VIP_bk1">售后服务</div></a>
+        </div>
+        <div class="mt50">
+            <div class="bscd bgcfff">
+                <div class="bgcfff bbs1e3 lh35 h35  pl10">下单时间：2015-12-12<span class="ml20">订单号：2540152746</span></div>
+                <div class="h90 mt15">
+                    <div class="fl ml10 mr12 w59"><a href="#"><img src="{$img_url}/images/pro_pic.jpg" width="59" height="75" /></a></div>
+                    <div class="fl lh24 w245">
+                        <a href="#">特价 意态YITAIWM 娇小女人福利场 2014秋冬新款无袖连衣冬新款无袖连衣裙 XS</a>
+                        <p class="fc64">颜色：红色&nbsp;&nbsp;尺码：XS</p>
+                    </div>
+
+                    <div class=" w85 fl lh20 tacn">1999.00<p class="fca7 tdlt">2576.00</p></div>
+                    <div class=" w47 fl tacn">2</div>
+                    <div class=" w85 fl lh20 tacn"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-----------内容--------->
+
+<include file="Page:footer" />

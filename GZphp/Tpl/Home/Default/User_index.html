@@ -1,0 +1,113 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+<GZ:list sql="select * from gz_slide_data where id = '32' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+$user_avvv='/Public/Uploads';
+?>
+<style>
+    body{  background: url({$ewmpic}) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;background-attachment: fixed;}
+</style>
+<!-----------内容--------->
+
+<div class="centent5 pb80" style="height:auto; overflow:auto;">
+
+
+
+
+    <include file="U:l" />
+
+
+
+
+
+
+
+
+
+    <div class="fr w680">
+
+        <include file="U:a" />
+
+
+        <form action="/index.php?g=Home&m=User&a=upload_newmm" method="post">
+        <div class="mt50 h30 lh30">
+            <div class="tar w60 fl">姓名</div>
+            <div class="fl ml15">{$new_mm.realname}</div>
+        </div>
+        <div class="mt15 h30 lh30">
+            <div class="tar w60 fl">邮箱</div>
+
+
+
+            <div class="fl ml15">{$new_mm.email}</div>
+
+
+            <!--<div class="fl ml20"><a href="" class="fcred">修改</a></div>-->
+
+
+
+
+        </div>
+        <div class="mt15 h30 lh30">
+            <div class="tar w60 fl">手机</div>
+            <div class="fl ml15">{$new_mm.mobile}</div>
+            <!--<div class="fl ml20"><a href="" class="fcred">修改</a></div>-->
+        </div>
+        <div class="mt15 h30 lh30">
+            <div class="tar w60 fl">性别</div>
+            <?php
+            $new_sex=array('保密','男','女');
+            ?>
+            <div class="fl ml15"><?php echo $new_sex[$new_mm['sex']];?></div>
+
+        </div>
+        <div class="mt15 h35 lh30">
+            <div class="tar w60 fl">生日</div>
+            <div class="fl ml10">{$new_mm.year}年</div>
+            <div class="fl ml10">{$new_mm.month}月</div>
+            <div class="fl ml10">{$new_mm.day}日</div>
+        </div>
+        <!--<p class="fcred ml70 lh30">准确填写生日，有机会获得更多惊喜哦！</p>-->
+        <div class="mt15 h35 lh30">
+            <div class="tar w60 fl">住址</div>
+            <div class="fl ml15">{$new_mm.address}</div>
+        </div>
+
+
+
+        </form>
+    </div>
+
+
+
+
+</div>
+
+<!-----------内容--------->
+
+
+
+
+
+
+
+
+
+
+
+
+<include file="Page:footer" />

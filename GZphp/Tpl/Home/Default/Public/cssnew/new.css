@@ -1,0 +1,19 @@
+﻿/*--------------------------4.22新增--*/
+.ipage {width: 100%;position: absolute; z-index:99; bottom:-45px;padding:0px;text-align: center; height: 20px;line-height: 20px;}
+.ipage li {margin:0px 4px;display: inline-block;}
+.ipage li a {background: #D6D6D6 repeat scroll 0 0 transparent; border-radius:6px; box-shadow: 0 0 4px rgba(0,0,0,0.5) inset;display: block;height: 14px;margin: 0 4px;outline: medium none;text-indent: -9999px;width: 14px; cursor: pointer;}
+.ipage li.current a {background: none repeat scroll 0 0 #ED334F;box-shadow: 0 2px 1px rgba(0,0,0,0.25) inset;}
+
+
+#search{
+float:left;
+}
+
+/*-------------------------------------------------------------4.23增加------------翻页代码---------*/
+
+.manu {PADDING:40px 0 25px; TEXT-ALIGN: center; margin:0 auto ; clear:both; font-family:Arial,"宋体", Helvetica, sans-serif}
+.manu A {	BORDER: #e5e5e5 1px solid; color:#777; PADDING:3px 7px;  MARGIN: 3px; background-color:#fff }
+.manu A:hover {	BORDER: #2A324E 1px solid;  COLOR: #2A324E; }
+.manu A:active {	BORDER: #2A324E 1px solid;COLOR: #666; }
+.manu .current {	BORDER: #2A324E 1px solid; PADDING:3px 7px; MARGIN: 3px; BACKGROUND-COLOR: #2A324E; color:#fff;}
+.manu .disabled {	BORDER: #e5e5e5 1px solid; PADDING:3px 7px; background-color:#eee }

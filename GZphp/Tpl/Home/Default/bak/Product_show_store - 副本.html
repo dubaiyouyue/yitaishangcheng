@@ -1,0 +1,429 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+{if !$status}
+  <script language="javascript" type="text/javascript"> 
+           alert('商品已下架！');window.location.href="{$Categorys[$catid]['url']}";  
+    </script> 
+{/if}
+
+  
+  <div class="left_nav">
+    <ul><!--左边分类列表-->
+<GZ:subcat catid="bcid">
+  <li><a href="{$r.url}">{$r.catname}</a></li>
+  <p><img src="/GZphp/Tpl/Home/Default/Public/images/next.png" width="9" height="10" /></p>
+</GZ:subcat>
+    </ul>
+  </div>
+  
+
+  <!--内容开始-->
+<script>
+
+// JavaScript Document图片滚动  新闻+作品+新影响人
+
+$(function(){
+    var page = 1;
+    var i = 2; //每版放2个图片
+    
+});
+
+
+
+</script>
+
+
+
+<div class="centent4" style="margin-top:160px; height:auto; overflow:auto; padding-bottom:30px;">
+
+  <div class=" fs16">{$title}</div>
+  <div class="mt20">
+    <div class="fl w430">
+    <?php //dump($Categorys);
+      //获取所有图片
+      //$str =$content;  
+      //preg_match_all("/\<img.*?src\=\"(.*?)\"[^>]*>/i", $str, $match);  
+      //print_r($match);
+
+    ?>
+<!--相册-->
+    <div id="tbody">
+    <div id="mainbody">
+      <img src="{$pics.1.filepath}" alt="{$title}" style="width:430px;" id="mainphoto" rel="{$pics.1.filepath}"  />
+    </div>
+    <img src="/GZphp/Tpl/Home/Default/Public/images/pro_left.jpg" width="11" height="21" id="goleft" />
+    <img src="/GZphp/Tpl/Home/Default/Public/images/pro_right.jpg" width="11" height="21" id="goright" />
+    <div id="photos">
+      <div id="showArea">
+        <!--
+          SRC: 缩略图地址
+          REL: 大图地址
+          NAME: 网址
+        -->
+        <?php 
+		//dump($pics);
+          $n=count($pics);
+          for ($i=0; $i <= $n; $i++) { 
+            echo '<img src="'.$pics[$i]['filepath'].'"  width="80" height="50" rel="'.$pics[$i]['filepath'].'"  />';
+          }
+        ?>
+        
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+var browse = window.navigator.appName.toLowerCase();
+var MyMar;
+var speed = 1; //速度，越大越慢
+var spec = 1; //每次滚动的间距, 越大滚动越快
+var minOpa = 100; //滤镜最小值
+var maxOpa = 100; //滤镜最大值
+var spa = 2; //缩略图区域补充数值
+var w = 0;
+spec = (browse.indexOf("microsoft") > -1) ? spec : ((browse.indexOf("opera") > -1) ? spec*10 : spec*20);
+function $(e) {return document.getElementById(e);}
+function goleft() {$('photos').scrollLeft -= spec;}
+function goright() {$('photos').scrollLeft += spec;}
+function setOpacity(e, n) {
+    if (browse.indexOf("microsoft") > -1) e.style.filter = 'alpha(opacity=' + n + ')';
+    else e.style.opacity = n/100;
+}
+$('goleft').style.cursor = 'pointer';
+$('goright').style.cursor = 'pointer';
+//$('mainphoto').onmouseover = function() {setOpacity(this, maxOpa);}
+//$('mainphoto').onmouseout = function() {setOpacity(this, minOpa);}
+//$('mainphoto').onclick = function() {location = this.getAttribute('name');}
+$('goleft').onclick = function() {this.src = '/GZphp/Tpl/Home/Default/Public/images/pro_left.jpg'; MyMar=setInterval(goleft, speed);}
+//$('goleft').onmouseout = function() {this.src = '/GZphp/Tpl/Home/Default/Public/images/pro_left.jpg'; clearInterval(MyMar);}
+$('goright').onclick = function() {this.src = '/GZphp/Tpl/Home/Default/Public/images/pro_right.jpg'; MyMar=setInterval(goright,speed);}
+//$('goright').onmouseout = function() {this.src = '/GZphp/Tpl/Home/Default/Public/images/pro_right.jpg'; clearInterval(MyMar);}
+
+/*
+window.onload = function() {
+    setOpacity($('mainphoto'), minOpa);
+    var rHtml = '';
+    var p = $('showArea').getElementsByTagName('img');
+    for (var i=0; i<p.length; i++) {
+        w += parseInt(p[i].getAttribute('width')) + spa;
+        setOpacity(p[i], minOpa);
+        //p[i].onclick = function() {location = this.getAttribute('name');}
+        p[i].onmouseover = function() {
+            setOpacity(this, maxOpa);
+            $('mainphoto').src = this.getAttribute('rel');
+            $('mainphoto').setAttribute('name', this.getAttribute('name'));
+            setOpacity($('mainphoto'), maxOpa);
+        }
+       p[i].onmouseout = function() {
+            setOpacity(this, minOpa);
+            setOpacity($('mainphoto'), minOpa);
+        }
+        rHtml += '<img src="' + p[i].getAttribute('rel') + '" width="0" height="0" alt="" />';
+    }
+    $('showArea').style.width = parseInt(w) + 'px';
+    /*var rLoad = document.createElement("div");
+    $('photos').appendChild(rLoad);
+    rLoad.style.width = "1px";
+    rLoad.style.height = "1px";
+    rLoad.style.overflow = "hidden";
+    rLoad.innerHTML = rHtml;*/
+}
+   */
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--相册-->
+    </div>
+    <div class="fr w310">
+      <div class=" mb15 lh35">
+        <div class="fl w150">货号：{$huohao}</div>
+        <div class="fl w150">材质：{$caizhi}</div>
+        <div class="fl w150">成分含量：{$cfhl}</div>
+        <div class="fl w150">面料：{$mianliao}</div>
+      </div>
+      <div class="w150 lh30 clear">尺码：
+      <?php 
+        $cm_arr=explode(' ',$chima);
+        foreach ($cm_arr as $key => $value) {
+          echo '<a href="javascript:;" onclick="ggllg(\''.$value.'\',\'zzmmcid\');chgColor(this);"><span class="size">'.$value.'</span></a>';
+        }
+      ?>
+      </div>
+
+      <div class="w150 lh30">颜色：
+      
+      <?php 
+        $cm_arr=explode(' ',$yanse);
+        foreach ($cm_arr as $key => $value) {
+          echo '<a href="javascript:;" onclick="ggllg(\''.$value.'\',\'zzmmcysid\');chgColory(this);"><span class="color">'.$value.'</span></a>';
+        }
+      ?>
+      </div>
+
+      <div class="fcred fs40 mt10">￥{$price}</div>
+      <div class="mt20"><input type="button" class="by" onclick="cartgo();" value="立即购买" /><input type="button" onclick="cartgoadd();" class="add" value="加入购物车" /></div>
+      <div class="mt30 h30">
+        <a href="#"><div class="love yuan">118</div></a>
+        <div class="fr lh24 fc64">245人购买，<a href="#" class="tdun">查看评价>></a></div>
+      </div>
+      <div class="mt20 bold lh30 bbsd6">详细信息</div>
+      <div class="lh24 mt10"> 
+    <!--内容-->
+    <div id="mainBox" style="height:120px;">
+    <div id="content" style="min-height:120px;">
+      {$description}
+    </div>
+    </div>
+<script>
+// JavaScript Document
+
+    var doc=document;
+    var _wheelData=-1;
+    var mainBox=doc.getElementById('mainBox');
+    function bind(obj,type,handler){
+    var node=typeof obj=="string"?$(obj):obj;
+    if(node.addEventListener){
+    node.addEventListener(type,handler,false);
+    }else if(node.attachEvent){
+    node.attachEvent('on'+type,handler);
+    }else{
+    node['on'+type]=handler;
+    }
+    }
+    function mouseWheel(obj,handler){
+    var node=typeof obj=="string"?$(obj):obj;
+    bind(node,'mousewheel',function(event){
+    var data=-getWheelData(event);
+    handler(data);
+    if(document.all){
+    window.event.returnValue=false;
+    }else{
+    event.preventDefault();
+    }
+    });
+    //火狐
+    bind(node,'DOMMouseScroll',function(event){
+    var data=getWheelData(event);
+    handler(data);
+    event.preventDefault();
+    });
+    function getWheelData(event){
+    var e=event||window.event;
+    return e.wheelDelta?e.wheelDelta:e.detail*40;
+    }
+    }
+    function addScroll(){
+    this.init.apply(this,arguments);
+    }
+    addScroll.prototype={
+    init:function(mainBox,contentBox,className){
+    var mainBox=doc.getElementById(mainBox);
+    var contentBox=doc.getElementById(contentBox);
+    var scrollDiv=this._createScroll(mainBox,className);
+    this._resizeScorll(scrollDiv,mainBox,contentBox);
+    this._tragScroll(scrollDiv,mainBox,contentBox);
+    this._wheelChange(scrollDiv,mainBox,contentBox);
+    this._clickScroll(scrollDiv,mainBox,contentBox);
+    },
+    //创建滚动条
+    _createScroll:function(mainBox,className){
+    var _scrollBox=doc.createElement('div')
+    var _scroll=doc.createElement('div');
+    var span=doc.createElement('span');
+    _scrollBox.appendChild(_scroll);
+    _scroll.appendChild(span);
+    _scroll.className=className;
+    mainBox.appendChild(_scrollBox);
+    return _scroll;
+    },
+    //调整滚动条
+    _resizeScorll:function(element,mainBox,contentBox){
+    var p=element.parentNode;
+    var conHeight=contentBox.offsetHeight;
+    var _width=mainBox.clientWidth;
+    var _height=mainBox.clientHeight;
+    var _scrollWidth=element.offsetWidth;
+    var _left=_width-_scrollWidth;
+    p.style.width=_scrollWidth+"px";
+    p.style.height=_height+"px";
+    p.style.left=_left+"px";
+    p.style.position="absolute";
+    p.style.background="#ccc";
+    contentBox.style.width=(mainBox.offsetWidth-_scrollWidth)+"px";
+    var _scrollHeight=parseInt(_height*(_height/conHeight));
+    if(_scrollHeight>=mainBox.clientHeight){
+    element.parentNode.style.display="none";
+    }
+    element.style.height=_scrollHeight+"px";
+    },
+    //拖动滚动条
+    _tragScroll:function(element,mainBox,contentBox){
+    var mainHeight=mainBox.clientHeight;
+    element.onmousedown=function(event){
+    var _this=this;
+    var _scrollTop=element.offsetTop;
+    var e=event||window.event;
+    var top=e.clientY;
+    //this.onmousemove=scrollGo;
+    document.onmousemove=scrollGo;
+    document.onmouseup=function(event){
+    this.onmousemove=null;
+    }
+    function scrollGo(event){
+    var e=event||window.event;
+    var _top=e.clientY;
+    var _t=_top-top+_scrollTop;
+    if(_t>(mainHeight-element.offsetHeight)){
+    _t=mainHeight-element.offsetHeight;
+    }
+    if(_t<=0){
+    _t=0;
+    }
+    element.style.top=_t+"px";
+    contentBox.style.top=-_t*(contentBox.offsetHeight/mainBox.offsetHeight)+"px";
+    _wheelData=_t;
+    }
+    }
+    element.onmouseover=function(){
+    this.style.background="#ccc";
+    }
+    element.onmouseout=function(){
+    this.style.background="#999";
+    }
+    },
+    //鼠标滚轮滚动，滚动条滚动
+    _wheelChange:function(element,mainBox,contentBox){
+    var node=typeof mainBox=="string"?$(mainBox):mainBox;
+    var flag=0,rate=0,wheelFlag=0;
+    if(node){
+    mouseWheel(node,function(data){
+    wheelFlag+=data;
+    if(_wheelData>=0){
+    flag=_wheelData;
+    element.style.top=flag+"px";
+    wheelFlag=_wheelData*12;
+    _wheelData=-1;
+    }else{
+    flag=wheelFlag/12;
+    }
+    if(flag<=0){
+    flag=0;
+    wheelFlag=0;
+    }
+    if(flag>=(mainBox.offsetHeight-element.offsetHeight)){
+    flag=(mainBox.clientHeight-element.offsetHeight);
+    wheelFlag=(mainBox.clientHeight-element.offsetHeight)*12;
+    }
+    element.style.top=flag+"px";
+    contentBox.style.top=-flag*(contentBox.offsetHeight/mainBox.offsetHeight)+"px";
+    });
+    }
+    },
+    _clickScroll:function(element,mainBox,contentBox){
+    var p=element.parentNode;
+    p.onclick=function(event){
+    var e=event||window.event;
+    var t=e.target||e.srcElement;
+    var sTop=document.documentElement.scrollTop>0?document.documentElement.scrollTop:document.body.scrollTop;
+    var top=mainBox.offsetTop;
+    var _top=e.clientY+sTop-top-element.offsetHeight/2;
+    if(_top<=0){
+    _top=0;
+    }
+    if(_top>=(mainBox.clientHeight-element.offsetHeight)){
+    _top=mainBox.clientHeight-element.offsetHeight;
+    }
+    if(t!=element){
+    element.style.top=_top+"px";
+    contentBox.style.top=-_top*(contentBox.offsetHeight/mainBox.offsetHeight)+"px";
+    _wheelData=_top;
+    }
+    }
+    }
+    }
+    new addScroll('mainBox','content','scrollDiv');
+
+</script>
+  <!--内容--> </div>
+      <div class="mt20 bold lh30 bbsd6">推荐搭配</div>
+      <div class="mt10 h70">
+<!--图片滚动-->
+<div class="v_show1" style="width:310px; ">
+    <div class="change_btn prev1 next_tuijian">上一页</div>
+    <div class="change_btn next1 prev_tuijian">下一页</div>
+
+  <div class="v_content1" style=" width:310px; height:70px;">
+    <div  class="v_content_list1">
+      <ul style="display:none;">
+        <li class="tuijian"><a href="#" title="产品名称"><img src="/GZphp/Tpl/Home/Default/Public/images/tuijian.jpg" width="68" height="68" /></a></li>
+        <li class="tuijian"><a href="#" title="产品名称"><img src="/GZphp/Tpl/Home/Default/Public/images/tuijian.jpg" width="68" height="68" /></a></li>
+        <li class="tuijian"><a href="#" title="产品名称"><img src="http://xlyitai.test.abc123.gxtkr.com/Uploads/201504/55366bf630563.jpg" width="68" height="68" /></a></li>
+        <li class="tuijian"><a href="#" title="产品名称"><img src="/GZphp/Tpl/Home/Default/Public/images/tuijian.jpg" width="68" height="68" /></a></li>
+        <li class="tuijian"><a href="#" title="产品名称"><img src="/GZphp/Tpl/Home/Default/Public/images/tuijian.jpg" width="68" height="68" /></a></li>
+        <li class="tuijian"><a href="#" title="产品名称"><img src="/GZphp/Tpl/Home/Default/Public/images/tuijian.jpg1" width="68" height="68" /></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!--图片滚动-->
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+
+
+
+
+<include file="B:g" />
+
+
+
+  <!--内容结束-->
+
+<include file="Page:footer" />

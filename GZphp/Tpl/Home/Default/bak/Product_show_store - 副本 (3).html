@@ -1,0 +1,262 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+{if !$status}
+  <script language="javascript" type="text/javascript"> 
+           alert('商品已下架！');window.location.href="{$Categorys[$catid]['url']}";  
+    </script> 
+{/if}
+
+
+  
+  <div class="left_nav">
+    <ul><!--左边分类列表-->
+<GZ:subcat catid="bcid">
+  <li><a href="{$r.url}">{$r.catname}</a></li>
+  <p><img src="/GZphp/Tpl/Home/Default/Public/images/next.png" width="9" height="10" /></p>
+</GZ:subcat>
+    </ul>
+  </div>
+  
+
+  <!--内容开始-->
+<script>
+
+// JavaScript Document图片滚动  新闻+作品+新影响人
+
+$(function(){
+    var page = 1;
+    var i = 2; //每版放2个图片
+    
+});
+
+
+
+</script>
+
+
+<!--height:auto; overflow:auto;-->
+<div class="centent4" style="margin-top:160px;  padding-bottom:30px;">
+
+  <div class=" fs16">{$title}</div>
+  <div class="mt20">
+    <div class="fl w430">
+    <?php //dump($Categorys);
+      //获取所有图片
+      //$str =$content;  
+      //preg_match_all("/\<img.*?src\=\"(.*?)\"[^>]*>/i", $str, $match);  
+      //print_r($match);
+
+    ?>
+<!--相册-->
+        <include file="N:pp" />
+
+<!--相册-->
+{$content}
+<div style="width:100%;height:40px;"></div>
+
+
+    </div>
+    <div class="fr w310">
+      <div class=" mb15 lh35">
+        <div class="fl w150" style="width:auto;">货号：{$huohao}</div>
+        <div class="fl w150" style="width:auto;">面料：{$caizhi}</div>
+        <div class="fl w150" style="width:auto;">成分含量：{$cfhl}</div>
+        <div class="fl w150" style="width:auto;">风格：{$mianliao}</div>
+      </div>
+      <div class="w150 lh30 clear" style="width:auto;">尺码：
+      <?php 
+        $cm_arr=explode('#',$chima);
+        foreach ($cm_arr as $key => $value) {
+			
+          //if(!($key%2)){
+			//$keyy=$key+1;
+			echo '<a href="javascript:;" onclick="ggllg(\''.$value.'\',\'zzmmcid\');chgColor(this);kkccc(\''.$cm_arr[$key].'\',\''.$cm_arr[$key].'\',\'\',\'\');"><span class="size">'.$value.'</span></a>';
+			//}
+        }
+      ?>
+      </div>
+
+      <div class="w150 lh30" style="width:auto;">颜色：
+      
+      <?php 
+        $cm_arr=explode('#',$yanse);
+        foreach ($cm_arr as $key => $value) {
+				//if($key%2) $allkkcc=$value+$allkkcc;
+          //if(!($key%2)) {
+		  //$keyy=$key+1;
+		  echo '<a href="javascript:;" onclick="ggllg(\''.$value.'\',\'zzmmcysid\');chgColory(this);kkccc(\'\',\'\',\''.$cm_arr[$key].'\',\''.$cm_arr[$key].'\');"><span class="color">'.$value.'</span></a>';
+		  //}
+        }
+      ?>
+      </div>
+	  
+	  
+	  <div class="w150 lh30" style="width:auto;">库存：
+      
+      <?php 
+       		 $cm_arr=explode('#',$kkcc);
+        foreach ($cm_arr as $key => $value) {
+		if(($key%2)) $allkkcc=$allkkcc+$value;
+		}
+		//dump($sdfsss);
+		echo '<span id="fdaskkcc">'.$allkkcc.'</span>';
+      ?>
+      </div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+
+      <div class="fcred fs40 mt10">￥{$price}</div>
+      <div class="mt20"><input type="button" class="by" onclick="cartgo();" value="立即购买" /><input type="button" onclick="cartgoadd();" class="add" value="加入购物车" /></div>
+      <div class="mt30 h30">
+        <a href="javascript:;" onclick="likeadd('{$id}');" ><div class="love yuan" id="like{$id}" {if !$list_my_id_ok}style="background: url(/GZphp/Tpl/Home/Default/Public/images/love_b.jpg) no-repeat 10px center;"{/if}>{$likenum}</div></a>
+        <div class="fr lh24 fc64">{$list_my_gou_mai_num}人购买，<a href="javascript:;" onclick="pingjia('{$id}','{$title}','{$pics.1.filepath}');" class="tdun">查看评价>></a></div>
+      </div>
+      <div class="mt20 bold lh30 bbsd6">详细信息</div>
+      <div class="lh24 mt10"> 
+    <!--内容-->
+    <div id="mainBox" style="height:143px;">
+    <div id="content" style="min-height:143px;">
+      {$description}
+    </div>
+    </div>
+	
+	
+	<include file="Product:shojjss" />
+  <!--内容--> </div>
+      <div class="mt20 bold lh30 bbsd6">推荐搭配</div>
+      <div class="mt10 h70">
+<!--图片滚动-->
+<include file="N:right" />
+<!--图片滚动-->
+      </div>
+    </div>
+  </div>
+  
+<div style="clear:both"></div>
+</div>
+
+
+
+
+<include file="B:g" />
+
+
+
+  <!--内容结束-->
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script>
+  k='';
+  m='';
+  a='';
+  b='';
+  function kkccc(dk,dm,da,db){
+	if(dk) k=dk;
+	if(dm) m=dm;
+	if(da) a=da;
+	if(db) b=db;
+	if(dk || da) {
+		var dddd=da;
+		if(!dddd) dddd=dk;
+		//$('#fdaskkcc').html(dddd);
+	}
+	if(k && a && m && b) {
+		//alert(m+b);
+		<?php
+		 $cm_arr=explode('#',$kkcc);
+        foreach ($cm_arr as $key => $value) {
+			if(($key%2)){
+				$kkkkss=$key+1;
+				//$sdfsss[$value]=$cm_arr[$kkkkss];
+				$nnssss=$cm_arr[$kkkkss]?$cm_arr[$kkkkss]:$cm_arr[0];
+				echo 'if((m+b)==\''.$nnssss.'\') $(\'#fdaskkcc\').html(\''.$value.'\');';
+			}
+        }
+		//$sdfsss[$value]=$cm_arr[0];
+		?>
+		
+		
+		
+	}
+  }
+  
+  function pingjia(tid,tt,pi){
+	//Ajax获取
+		layer.closeAll(); 
+		var url='/index.php?g=Home&m=Pingjia&a=index&mmm=iframe&id='+tid+'&v='+Math.random()+'&pic='+pi+'&title='+tt;
+        $.post(url, {}, function(str){
+            layer.open({
+                title: false,
+                shadeClose:false,
+                area: ['800px', '580px'],
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+        });
+  }
+  
+  
+  
+
+//like
+function likeadd(did){
+var uuuiiidd='{$new_mm.id}';
+        if(!uuuiiidd){
+            //onifrmaee('/index.php/login/','1');
+			ddllff();
+            return false;
+        }
+
+	var likenum=$('#like'+did).text();
+	likenum=parseInt(likenum)+1;
+	//alert(did);
+	$.ajax( {
+	url: '/index.php?g=Home&m=Like&a=add&id='+did, //这里是静态页的地址
+	type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		success: function(data){
+			//alert(data);
+			if(data=='1') alert('已经添加过了！请勿重复喜欢！');
+			if(data=='2'){
+			$('#like'+did).text(likenum);
+			document.getElementById('like'+did).style.background='url(/GZphp/Tpl/Home/Default/Public/images/love.jpg) no-repeat 10px center';
+			//alert('添加喜欢成功！');
+			}
+		}
+	});
+}
+</script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+<include file="Page:footer" />

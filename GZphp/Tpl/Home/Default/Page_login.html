@@ -1,0 +1,153 @@
+<?php
+//dump($new_mm['id']);exit;
+	if($new_mm['id']){
+		//$this->error(L('请登录！'),'/index.php/login/');
+		header('Location:/index.php?g=Home&m=User&a=index'.$the_url);
+		exit;
+	}
+?>
+{__NOLAYOUT__}
+<include file="Page:header" />
+<include file="Page:header" />
+  <GZ:list sql="select * from gz_slide_data where fid = '7' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+<?php
+
+//dump($new_user_arr_info);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+
+?>
+
+<script type="text/javascript" src="/Public/Js/my.js"></script>
+
+<form name="zcform" id="zcform" method="POST" action="">
+
+    <div class="w680 bgcfff p50" style="height:auto; width: auto;overflow:auto;{if $gmmm!="iframe"}margin-top: 128px;{/if}">
+        <div class="fl w330 ptr mt20">
+            <div class="login_pic"><img src="{$ewmpic}" width="256" height="317"><!---限宽不限高，高度超出自动隐藏--></div>
+            <div class="login_icon1"><img src="{$img_url}/images/login_icon1.png" width="98" height="150"></div>
+            <div class="login_icon2"><img src="{$img_url}/images/login_icon2.png" width="41" height="94"></div>
+        </div>
+        <div class="fr w300">
+            <div class="bbs3lan pb25"><img src="{$img_url}/images/login.png" width="129" height="32"></div>
+			<p id="tsfdsfdsfdf" style="color:red;"></p>
+            <div class="mt30 fs14">
+				
+                <p><span class="fl lh30">用户名：</span><input name="username" id="username" type="text" class="w220 select3"></p>
+                <p class="mt15"><span class="fl lh30">&nbsp;&nbsp;&nbsp;密码：</span><input id="password" name="password" type="password" class="w220 select3"></p>
+
+
+
+                <p class="mt15"><span class="fl lh30">验证码：</span><input name="verifyCode" id="verify" type="text" class=" w85 select3">
+                    <img src="{:U('Home/Index/verify')}" id="verifyImage" onclick="javascript:resetVerifyCode();" width="55" height="22" class="ml7" title="{:L('resetVerifyCode')}"></p>
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <div class="mt30"><input class="lan_kuai ml55" type="button" onclick="tedsfdsfd();" value="登陆"><a href="javascript:;" onclick="layajaxrrzzhm();" class="fcorg"><u class="ml10">忘记密码？</u></a></div>
+            <p class="mt20"></p><div class="ml55 go_regiter yuan">还没有账号？<a href="javascript:;" onclick="ddllffrr();" class="fcred">去注册&gt;&gt;</a></div></div>
+    </div>
+
+</form>
+
+
+
+
+
+
+<script>
+    function tedsfdsfd()
+    {
+        var username=document.getElementById('username').value;
+        //var mobile=document.getElementById('mobile').value;
+        //var c_mobile=document.getElementById('c_mobile').value;
+        var password=document.getElementById('password').value;
+        //var password2=document.getElementById('password2').value;
+       var verify=document.getElementById('verify').value;
+        if(!username){
+            //alert('请输入用户名');
+			$('#tsfdsfdsfdf').text('请输入用户名!');
+			return false;
+        }
+
+
+        if(!password){
+            //alert('请输入密码');return false;
+			$('#tsfdsfdsfdf').text('请输入密码!');
+			return false;
+        }
+
+        if(!verify){
+        //alert('请输入验证码！');return false;
+			$('#tsfdsfdsfdf').text('请输入验证码!');
+			return false;
+        }
+
+
+        //document.getElementById("myform").submit();
+//alert(name);
+
+
+
+
+
+
+	// 提交表单数据到后台处理
+	$.ajax({
+		type: 'POST',
+		url: '{:URL('User-Login/dologin')}',
+		data: $('#zcform').serialize(),
+		beforeSend: function(){
+		$('#tsfdsfdsfdf').text('登录中，请稍等...');
+		},
+		success: function(msg){
+			if(msg==1) $('#tsfdsfdsfdf').text('用户名或者密码错误！');
+			if(msg==2) $('#tsfdsfdsfdf').text('验证码错误！');
+			if(msg==4) $('#tsfdsfdsfdf').text('账号已被禁用！');
+			if(msg==3) {
+				$('#tsfdsfdsfdf').text('登录成功！');
+				location.href = '/index.php?g=Home&m=User&a=index';
+			}
+		}
+	});
+
+
+
+
+
+
+
+
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<include file="Page:footer" />

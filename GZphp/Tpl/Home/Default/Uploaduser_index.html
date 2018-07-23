@@ -1,0 +1,18 @@
+{__NOLAYOUT__}
+<style>
+    .new_upload_boutton{border: 1px solid #aaa;
+        padding: 3px 9px;
+        cursor: pointer;}
+    .new_upload_boutton:hover{background: #fff;color: #0000ff;}
+</style>
+<div id="new_upload" style="padding: 9px;">
+<form enctype="multipart/form-data" method="POST" action="/index.php?g=Home&m=Uploaduser&a=uploaduser">
+<input type="file"  name="photo1">
+
+<input type="submit" value="上传" class="new_upload_boutton">
+
+    <p>图片不能大于500KB</p>
+
+</form>
+</div>
+

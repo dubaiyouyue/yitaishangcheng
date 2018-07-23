@@ -1,0 +1,55 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+{if !$status}
+  <script language="javascript" type="text/javascript"> 
+           alert('文章不存在！');window.location.href="{$Categorys[$catid]['url']}";  
+    </script> 
+{/if}
+<style>
+body{
+  background: url({$xl_url_mod}images/news_bg.jpg) no-repeat center fixed;
+}#content{width:620px!important;padding-right: 20px;}.scrollDiv{width:4px;background-color:#444;}#content img{max-width:620px;}
+</style>
+
+ <div class="bgcfff" id="newslisss" style=" width:1100px;height:600px;">
+
+<div class="fl w280" style="height:600px;"><img src="{$thumb}" width="280" height="600" /></div>
+
+<div class="fr" style="width:640px; height:540px; padding:20px 90px 40px;">
+<div class="news_title lh35 fs20 fc000">{$title}</div>
+    <div class="lh30 fs14 mb10">{$createtime|toDate=###,'Y-m-d'}</div>
+    <!---内容--->
+    <div id="mainBox" style="height:420px;">
+    <div id="content" style="line-height:30px;">
+	<?php
+		echo $content=str_ireplace('.jpg','.jpg?v='.rand(100,999),$content);
+	?>
+      
+    </div>
+    </div>
+       <script>$(function(){$('#mainBox').scroll_absolute({arrows:true})});</script>
+  <!---内容--->
+  <div class=" clear mt20">
+  <?php
+	$pre['url']=explode('/',$pre['url']);
+	//dump($pre['url']);exit;
+	$poo_n=count($pre['url'])-1;
+	$pre['url']=$pre['url'][$poo_n];
+	$new_upa=str_ireplace('.html','',$pre['url']);
+	
+	$next['url']=explode('/',$next['url']);
+	//dump($next['url']);exit;
+	$poo_n=count($next['url'])-1;
+	$next['url']=$next['url'][$poo_n];
+	$new_next=str_ireplace('.html','',$next['url']);
+  ?>
+  
+    <div class="fl"> {if $new_upa}<span class="mr7"><img src="/demo/images/prew.png" width="9" height="10" /></span>上一篇：<a href="javascript:;" onclick="layajaxrrzzhmnew('{$new_upa}');">{$pre[title]} </a>{else}没有上一篇了{/if}</div>
+    <div class="fr"> {if $new_next}下一篇：<a href="javascript:;" onclick="layajaxrrzzhmnew('{$new_next}');">{$next[title]} </a><span class="ml7"><img src="/demo/images/next.png" width="9" height="10" /></span>{else}没有下一篇了{/if}</div>
+  </div>
+  </div>
+</div>
+
+
+<include file="Page:footer" />

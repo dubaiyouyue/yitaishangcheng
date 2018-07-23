@@ -1,0 +1,53 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+{if !$status}
+  <script language="javascript" type="text/javascript"> 
+           alert('文章不存在！');window.location.href="{$Categorys[$catid]['url']}";  
+    </script> 
+{/if}
+
+<style type="text/css">.xlllsimg img{display: none;}</style>
+    <?php //dump($Categorys);
+      //获取所有图片
+      $str =$content;  
+      preg_match_all("/\<img.*?src\=\"(.*?)\"[^>]*>/i", $str, $match);
+    ?>
+
+<script src="{$xl_url_mod}js/scroll1.js"></script>
+
+  <div class="image_bg"></div>
+  <?php
+  //$title_catid=$Categorys[$catid]['parentid'];
+  $jjj_dsr='LARGE IMAG';
+  if($catid==33) $jjj_dsr='BEAUTIFUL PLAN';
+  ?>
+<div class="LARGE tacn fs30" <?php if($catid==33 || $catid==27) echo 'style="display:none;"';?>>{$jjj_dsr}</div>
+
+<div class="centent5 ">
+  <div class=" fs20 fc000 tacn mt20">{$title}</div>
+  <div class="tacn lh27 mb10"> {$createtime|toDate=###,'Y-m-d H:i:s'}&nbsp;&nbsp;&nbsp;<a href="{$Categorys[$catid]['url']}" class="tdun">返回列表</a></div>
+<!--图片滚动-->
+<div class="v_show2" style="width:850px;">
+    <div class="change_btn prev2 next_image1">上一页</div>
+    <div class="change_btn next2 prev_image1">下一页</div>
+
+  <div class="v_content2" style=" width:850px; height:540px;">
+    <div  class="v_content_list2 ">
+      <ul>
+        <?php 
+          $n=count($match['0']);
+          for ($i=0; $i < $n; $i++) { 
+            echo '<li class="image_cn_list "><div class="tacn"><img src="'.$match['1'][$i].'" style="width:672px;" /></div><div class="image_cn_zi xlllsimg">'.$content.'</div></li>';
+          }
+        ?>
+
+
+        
+      </ul>
+    </div>
+  </div>
+</div>
+<!--图片滚动-->
+</div>
+
+<include file="Page:footer" />

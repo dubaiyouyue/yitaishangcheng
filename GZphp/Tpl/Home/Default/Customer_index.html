@@ -1,0 +1,106 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+<GZ:list sql="select * from gz_slide_data where id = '32' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+<style>
+    body{  background: url({$ewmpic}) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;background-attachment: fixed;}
+</style>
+<!-----------内容--------->
+
+<div class="centent5 pb80" style="height:auto; overflow:auto;">
+
+
+
+    <include file="U:l" />
+
+
+
+
+    <div class="fr w680">
+        <include file="U:a" />
+
+
+
+
+        <div class="mt50 fs16 lh30 h35">
+		
+		  <div class="fl">账户余额：<b class="fcred">{$new_mm.balance}元</b><span class="ml20 fs12"><a href="/index.php?g=Home&m=Recharge&a=index" class="fcorg tdun">在线充值</a></span></div>
+		
+		  <div class="fr">账户积分：<b class="fcred">{$new_mm.points}分</b><span class="ml20 fs12"><a href="javascript:;" onclick="assssthh();" class="fcorg">积分规则</a></span></div>
+		
+		</div>
+		
+        <div class="mt30 fa14 lh30">消费记录：</div>
+        <div class="bs1e3 bgcfff">
+            <div class="h40 lh40  bold fs14 bgcf0">
+                <div class="fl w150 pl10">时间</div>
+                <div class="fl w150 tacn">收入/支出</div>
+                <div class="fl w330 ml20">明细</div>
+            </div>
+
+			
+			
+			<?php
+			//dump($list_myok);exit;
+				foreach($list_myok as $k=>$v){
+				?>
+            <div class="h40 btsd6 lh40">
+                <div class="fl w150 pl10"><?php 
+					echo date('Y-m-d H:i:s',$v['createtime']);
+				?></div>
+                <div class="fl w150 tacn"><?php
+					if($v['lb']=='zz') echo '+';
+					else echo '-';
+					echo $v['je'];
+				?>元</div>
+                <div class="fl w330 ml20 h35 ofhd">
+				<?php
+					if($v['lb']=='zz') echo '充值';
+					else echo '购买';
+				?>
+				</div>
+            </div>
+
+			<?php
+				}?>
+
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+<script>
+function assssthh(){
+layer.open({
+	area: ['1000px', '600px'],
+title :'积分规则',
+    type: 2, 
+	content: ['/index.php/hykss/']
+}); 
+}
+</script>
+
+<!-----------内容--------->
+
+<include file="Page:footer" />

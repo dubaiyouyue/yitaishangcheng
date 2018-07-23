@@ -1,0 +1,55 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+<style>
+    body{  background: url({$img_url}/images/vip_bg.jpg) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;}
+</style>
+
+<!-----------内容--------->
+  
+    <div class="centent5 pb80" style="height:auto; overflow:auto">
+      
+	  
+	  
+	  <include file="U:l" />
+	  
+	  
+	  
+      <div class="fr w680">
+        <div class="bbs1lan h30 fs14">
+          <div class="fl VIP_bk1_on">在线充值</div>
+        </div>
+       
+	   
+	   
+	   <form name="alipayment" action="/zfb/alipayapi.php" method="post" target="_blank">
+	   <div class="mt50 lh30 fs14">
+           
+           <div class="fs16 bbdcc">在线充值</div>
+           <div class=" mt15">账户余额：<b class="fcred">{$new_mm.balance}元</b></div>
+           <div class="mt15">充值金额：<input type="text" name="WIDtotal_fee" class=" w60 select2 " />元</div>
+            <div class="mt15 h45 lh45 fs14">
+          <div class="fl">支付方式：</div>
+          <div class="pay pay_on"><img src="/demo/images/zhifu.png" width="115" height="40" /></div><!-----pay_on为选中状态------->
+			<!--<div class="pay"><img src="images/zhifu.png" width="115" height="40" /></div>-->
+        </div>
+           <div class="mt15"><input class="red_kuai1" type="submit" value="马上充值" /></div><!---后跳转至支付宝或相对网银进行充值---->
+        
+        </div>
+	   </form>
+	   
+	   
+      </div>
+    </div>
+  
+<!-----------内容--------->
+
+<include file="Page:footer" />

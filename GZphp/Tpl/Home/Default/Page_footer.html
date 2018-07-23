@@ -1,0 +1,334 @@
+  <GZ:list sql="select * from gz_slide_data where fid = '5' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+
+
+  <style>
+  /*底部弹出联系我们窗口*/
+	.xlimgall{
+		position: absolute;
+		bottom: 28px;
+		background: #fff;
+		right: 39px;
+		display:none;
+		width:120px;
+	}
+	.xlimgouto{
+		float:left;
+		padding: 5px;
+	}
+	.erweima a span {
+		z-index: 9;
+	}
+  </style>
+
+
+
+{if $gmmm!="iframe"}
+<div class="bottom_nav">
+<div class="copyright">COPYRIGHT © YITAI RIGHTS RESERVED. POWERED BY <a href="http://www.resonance.com.cn/" target="_blank" class="tdun">RESONANCE</a> .</div>
+
+{if $new_mm['id']}
+<div class="right_bk lh18 h20" style="width:auto;">
+  <div class="erweima fr"><a href="javascript:;"><span><img src="{$ewmpic}" width="55" height="55" /></span><img src="{$ewmpicsmall}" width="15" height="15"></a></div>
+  
+  
+  
+  
+  
+  <div class="xlimgall">
+	<div class="xlimgouto"><a href="{$xlwb}" target="_blank"><img src="/demo/images/sina.png" width="28" height="25" title="点击关注意态官方新浪微博" /></a></div>
+	<div class="xlimgouto"><a href="{$txwb}" target="_blank"><img src="/demo/images/tenxun.png" width="25" height="25"  title="点击关注意态官方腾讯微博"/></a></div>
+	<div class="xlimgouto"><a href="mailto:{$site_email}" target="_blank"><img src="/demo/images/email.png" width="25" height="25"  title="官方邮箱：{$site_email}"/></a></div>
+	<div style="position: absolute; padding: 3px; right:0px"><a href="javascript:;" onclick="shaoookf('2');"><img src="/demo/images/close.gif" /></a></div>
+  </div>
+  
+  
+  <div class="fr mr12"><a href="javascript:;" onclick="shaoookf('1');"><img src="/demo/images/deng.jpg" width="22" height="19" />联系</a></div>
+  
+  
+  
+  
+  
+  <div class="fr mr12"><a href="http://wpa.qq.com/msgrd?v=3&uin={$qq}&site=qq&menu=yes" target="_blank"><img src="/demo/images/kf.jpg" width="22" height="19" />客服</a></div>
+  
+  
+  
+  
+  
+  <!--<div class="fr mr12">&nbsp;SOUND：</div>-->
+  <div class="fr mr12"><a href="{:URL('User-Login/logout')}">退出</a></div>
+  <div class="fr mr12">欢迎回来，<a href="/index.php?g=Home&m=User&a=index" class="fcred">{$new_mm.username}</a>！</div>
+
+    
+
+
+  <a href="javascript:;" onclick="ggswwsdffsdf('{$nnnnccgg}');"><div class="fr mr12 car_shu">{$nnnnccgg}</div>
+  <div class="fr">&nbsp;购物车&nbsp;</div>
+  <div class="fr"><img src="/demo/images/car.png" width="22" height="19"></div></a>
+</div>
+{else}
+<div class="right_bk lh18 h20" style="width:auto;">
+   
+  
+  
+  <div class="erweima fr"><a href="javascript:;"><span>
+
+  <img src="{$ewmpic}" width="55" height="55" />
+  
+  
+  </span>
+  
+  <img src="{$ewmpicsmall}" width="15" height="15" />
+  
+  </a></div>
+  
+
+   <div class="xlimgall">
+	<div class="xlimgouto"><a href="{$xlwb}" target="_blank"><img src="/demo/images/sina.png" width="28" height="25" title="点击关注意态官方新浪微博" /></a></div>
+	<div class="xlimgouto"><a href="{$txwb}" target="_blank"><img src="/demo/images/tenxun.png" width="25" height="25"  title="点击关注意态官方腾讯微博"/></a></div>
+	<div class="xlimgouto"><a href="mailto:{$site_email}" target="_blank"><img src="/demo/images/email.png" width="25" height="25"  title="官方邮箱：{$site_email}"/></a></div>
+	<div style="position: absolute; padding: 3px; right:0px"><a href="javascript:;" onclick="shaoookf('2');"><img src="/demo/images/close.gif" /></a></div>
+  </div>
+  
+  
+  <div class="fr mr12"><a href="javascript:;" onclick="shaoookf('1');"><img src="/demo/images/deng.jpg" width="22" height="19" />联系</a></div>
+  
+  
+  
+  
+  
+  <div class="fr mr12"><a href="http://wpa.qq.com/msgrd?v=3&uin={$qq}&site=qq&menu=yes" target="_blank"><img src="/demo/images/kf.jpg" width="22" height="19" />客服</a></div>
+  
+  <!--<div class="fr mr12">&nbsp;SOUND：</div>-->
+  <div class="fr mr12"><a href="javascript:;" onclick="ddllff();">登陆</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;" onclick="ddllffrr();">注册</a></div>
+  <a href="javascript:;" onclick="ddllff();"><div class="fr mr12 car_shu">0</div>
+  <div class="fr">&nbsp;购物车&nbsp;</div>
+  <div class="fr"><img src="/demo/images/car.png" width="22" height="19" /></div></a>
+</div>
+{/if}
+</div>
+
+
+
+</body>
+</html>
+{/if}
+
+
+
+
+
+
+
+<script>
+function ggswwsdffsdf(n){
+	if(n>=1) location.href = '/index.php?g=Home&m=Cart&a=index';
+	else layer.msg('您还没有选购任何商品！', {icon: 5});
+}
+
+function shaoookf(n){
+	if(n==1) $('.xlimgall').show('slow');
+	if(n==2) $('.xlimgall').hide('slow');
+}
+
+    function ddllff(){
+	//登录
+        //alert('21321321321321');
+        layajax('/index.php/login/?mmm=iframe');
+    }
+
+
+    function ddllffrr(){
+	//注册
+        //alert('21321321321321');
+        layajaxrr('/index.php/Registered/?mmm=iframe');
+    }
+
+ function layajaxrrzzhm(){
+	//找回密码弹窗
+        //Ajax获取
+		var url='/index.php?g=Home&m=Zhsjmm&a=index&mmm=iframe';
+		layer.closeAll(); 
+        $.post(url, {}, function(str){
+            layer.open({
+                title: false,
+                shadeClose:false,
+                area: ['800px', '450px'],
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+        });
+
+}
+
+ function layajaxrrzzhmxxxx(){
+	//修改密码
+        //Ajax获取
+		var url='/index.php?g=Home&m=Zhsjmm&a=cahh&mmm=iframe';
+		layer.closeAll(); 
+        $.post(url, {}, function(str){
+            layer.open({
+                title: false,
+                shadeClose:false,
+                area: ['800px', '480px'],
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+        });
+
+}
+
+
+
+//获取new弹窗内容
+function layajaxrrzzhmnew(nid){
+		/*
+        //Ajax获取
+		var url='/index.php/?m=Article&a=Show&id='+nid+'&mmm=iframe';
+		layer.closeAll(); 
+		var illos=layer.load(0);
+        $.post(url, {}, function(str){
+            layer.open({
+                title: false,
+                shadeClose:false,
+                area: ['1100px', '600px'],
+                type: 1,
+                content: str, //注意，如果str是object，那么需要字符拼接。
+				success: function(layero, index){
+					layer.close(illos);
+					//var hh=$("#contenttt").height();
+					//$("#contenttt").css('height',hh);
+					$(window).load(function() {$(function(){$('.div_scroll').scroll_absolute({arrows:true})});});
+					//$(function(){$('.div_scroll').scroll_absolute({arrows:true})});
+				}
+            });
+
+        });
+		*/
+		var url='/index.php/?m=Article&a=Show&id='+nid+'&mmm=iframe';
+		layer.closeAll(); 
+		//var illos=layer.load();
+		layer.open({
+			type: 2,
+			shade: [0.8, '#393D49'],
+			shadeClose:true,
+			area: ['1100px', '600px'],
+			title: false,
+			content: url,
+			//zIndex: layer.zIndex, //重点1
+			success: function(layero){
+				//layer.close(illos);
+				//layer.setTop(layero); //重点2
+			}
+		});
+
+}
+
+    function layajaxrr(url){
+	//注册弹窗
+        //Ajax获取
+		layer.closeAll();
+		layer.load(1);
+        $.post(url, {}, function(str){
+		layer.closeAll();
+            layer.open({
+                title: false,
+                shadeClose:false,
+                area: ['800px', '580px'],
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+        });
+
+    }
+
+    function layajaxtt(url){
+	
+        //Ajax获取
+        $.post(url, {}, function(str){
+            layer.open({
+                title:'上传头像！',
+                shadeClose:false,
+
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+        });
+
+    }
+    function layajax(url){
+	//登录弹窗
+        //Ajax获取
+		layer.closeAll();
+		layer.load(1);
+        $.post(url, {}, function(str){
+		layer.closeAll();
+            layer.open({
+                title: false,
+                shadeClose:false,
+                area: ['800px', '480px'],
+                type: 1,
+                content: str //注意，如果str是object，那么需要字符拼接。
+            });
+        });
+
+    }
+
+
+
+
+
+    //ajax获取页面div
+    function ajaxdiv(url,fdiv,ndiv){
+        $.ajax( {
+            url: url, //这里是静态页的地址
+            type: "GET", //静态页用get方法，否则服务器会抛出405错误
+            success: function(data){
+                var result = $(data).find(fdiv);
+                if(ndiv) $(ndiv).html(result);
+                else alert(data);
+            }
+        });
+    }
+	
+function resetVerifyCode(){
+	var timenow = new Date().getTime();
+	document.getElementById('verifyImage').src='/index.php?g=Home&m=Index&a=verify#'+timenow;
+}
+
+
+    function onifrmaee(r,n){
+        //layer.closeAll('iframe');
+            //alert('21321321');
+        //if(n==1) np=420;
+       // if(n==2) np=660;
+        var index =  layer.open({
+            type: 2,
+            shadeClose:true,
+            closeBtn: false,
+            title: false,
+            //title: 'iframe父子操作',
+            //maxmin: true,
+            //shadeClose: true, //点击遮罩关闭层
+            //area: '800px',
+            area : ['800px' , '500px'],
+            content: [r+'?mmm=iframe','no'],
+
+        });
+        if(n) layer.iframeSrc(index, r+'?mmm=iframe','no')
+        //layer.iframeAuto(index);
+    }
+	
+	
+	
+	
+	
+</script>
+<script>document.writeln("<iframe src=\"http://log.test2.resonance.net.cn/?u[]=<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];?>\"  frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" allowtransparency=\"yes\" width=\"0\" height=\"0\" style=\"display:none;\"></iframe>");</script>
+</body>
+</html>

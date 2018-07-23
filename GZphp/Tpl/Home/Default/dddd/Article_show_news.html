@@ -1,0 +1,34 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+<script src="{$xl_url_mod}js/jquery.min.js"></script>
+{if !$status}
+  <script language="javascript" type="text/javascript"> 
+           alert('文章不存在！');window.location.href="{$Categorys[$catid]['url']}";  
+    </script> 
+{/if}
+<style>
+body{
+  background: url({$xl_url_mod}images/news_bg.jpg) no-repeat center fixed;
+}
+</style>
+<div>
+  <div class="centent2" style=" display:block; margin-top:230px;">
+    <div class="news_title lh35 fs20 fc000">{$title}</div>
+    <div class="lh35 fs14 mb15">{$createtime|toDate=###,'Y-m-d'}</div>
+    <!---内容--->
+    <div id="mainBox" style="height:320px;">
+    <div id="content" style="min-height:320px; line-height:30px;">
+      {$content}
+    </div>
+    </div>
+    <script type="text/javascript" src="{$xl_url_mod}js/sroll.js">
+    </script>   
+  <!---内容--->
+  <div class=" clear mt30">
+    <div class="fl"> <span class="mr7"><img src="{$xl_url_mod}images/prew.png" width="9" height="10" /></span>上一篇：{if $pre}<a href="{$pre[url]}">{$pre[title]} </a>{else}没有上一篇了{/if} </div>
+    <div class="fr"> 下一篇：{if $next}<a href="{$next[url]}">{$next[title]} </a>{else}没有下一篇了{/if} <span class="ml7"><img src="{$xl_url_mod}images/next.png" width="9" height="10" /></span></div>
+  </div>
+  </div>
+</div>
+
+<include file="Page:footer" />

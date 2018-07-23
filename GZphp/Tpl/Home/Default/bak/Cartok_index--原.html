@@ -1,0 +1,150 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+
+<!-----------内容--------->
+  <form name="myform" id="myform" method="POST" action="/index.php?g=Home&m=Cartok&a=ok">
+    <div class="cart_bg">
+      <div class="centent2 pb80">
+        <div class=" h45 mb25">
+          <div class="step bbs4cc fs18 fcccc"><b class=" fs30">01</b> / 我的购物车</div>
+          <div class="step bbs42A fs18"><b class=" fs30">02</b> / 确定订单信息</div>
+          <div class="step bbs4dd fs18 fcddd"><b class=" fs30">03</b> / 成功提交订单</div>
+        </div>
+        <p class="fc000 fs16 bold mb10">1、地址选择</p>
+        <div class="lh40 bgcfa pl10 pr10 ">
+		
+		<?php
+			foreach($list_address as $k=>$v){
+				?>
+				 <p> <input type="radio" name="radio" id="radio" value="<?php echo $v['name'];?>&nbsp;&nbsp;&nbsp;<?php echo $v['tel'];?>&nbsp;&nbsp;&nbsp;<?php echo $v['dz'];?> 
+		  &nbsp;<?php echo $v['xxdz'];?>" />
+          <?php echo $v['name'];?>&nbsp;&nbsp;&nbsp;<?php echo $v['tel'];?>&nbsp;&nbsp;&nbsp;<?php echo $v['dz'];?> 
+		  &nbsp;<?php echo $v['xxdz'];?>
+		  <!--<span class="ml20"><a href="" class="fcred">修改</a></span><span class="ml10"><a href="" class="fcred">删除</a></span>-->
+		  </p>
+          <div class=" bbdcc"></div>
+				<?php
+			}
+		?>
+		
+		
+         
+         
+		 
+		 
+        </div>
+        <div class="mt10" id="ddianww"><a href="javascript:;" onclick="addnewaddres();"><img src="/demo/images/add.png" width="96" height="28" /></a></div>
+        
+		
+		<style>
+		select{border: 1px solid #ccc;
+        line-height: 30px;
+        height: 30px;
+        background-color: #fff;
+        padding: 0 10px;}
+		</style>
+		
+		<!-------------------点击使用新地址后出现------------->
+        <div class="mt15" id="dddenw" style="display:none;">
+          <div class="lh35">所在地区<b class="fcred"> *</b>：
+            <input id="address-address" name="dz" type="hidden" value="" />
+			<include file="D:q" />
+			
+			
+			
+			</div>
+          <div class="lh35">详细地址 <b class="fcred">*</b>：
+            <input type="text" name="xxdz" class="w500 select1 mr12" />
+          邮政编码：<input type="text" name="yb" class="w100 select1" /></div>
+          <div class="lh35">收货人姓名<b class="fcred">*</b>：<input name="name" type="text" class="w100 select1 mr12" />
+          手机号码 <b class="fcred">*</b>：
+          <input type="text" name="tel" class="w100 select1" /></div>
+        </div>
+        <!-------------------点击使用新地址后出现------------->
+		
+		<script>
+			function addnewaddres(){
+				document.getElementById('dddenw').style.display="";
+				document.getElementById('ddianww').style.display="none";
+				
+			}
+		</script>
+		
+		
+        <div class=" bbs1e3 mt10"></div>
+        <p class="fc000 fs16 bold mt10">2、送货时间<span class="noraml fs14 fc64 ml20">送货时间仅供参考，快递公司会尽量满足您的要求</span></p>
+        <div class="mt10 h35">
+          <div class="fl select2 selon ml10"><input class="select2radio2" type="radio" name="radio2" value="仅工作日送货" />仅工作日送货</div><!---selon为选中状态--->
+          <div class="fl select2 ml10"><input class="select2radio2" type="radio" name="radio2" value="仅周末送货" />仅周末送货</div>
+          <div class="fl select2 ml10"><input class="select2radio2" type="radio" name="radio2" value="工作日/周末/假日均可" />工作日/周末/假日均可</div>
+        </div>
+        <div class=" bbs1e3 mt10"></div>
+        <p class="fc000 fs16 bold mt10 ">3、商品清单</p>
+        <div class="mt10 bs1e3">
+          <div class="bgcfa lh35 h35 bbs1e3">
+          <div class="cart_cn1_1">订购商品</div>
+          <div class="cart_cn2">数量</div>
+          <div class="cart_cn4">单价（元）</div>
+          <div class="cart_cn3">小计（元）</div>
+        </div>
+		
+		
+		
+		<?php
+			foreach($list_my as $k=>$v){
+				?>
+				 <div class=" bgcfff h50 bbs1e3 mt10">
+          <div class="cart_cn1_1 lh24"><p class="h24 ofhd"><?php echo $v['title'];?></p><p class="fca7">颜色：<?php echo $v['ys'];?>&nbsp;&nbsp;尺码：<?php echo $v['cm'];?></p>
+          </div>
+          <div class="cart_cn2 lh40"><?php echo $v['num'];?></div>
+          <div class="cart_cn4 lh40 fs16 bold"><?php echo $v['price'];?></div>
+          <div class="cart_cn3 lh40 fs16 bold"><?php echo $v['price']*$v['num'];?></div>
+        </div>
+				<?php
+			}
+		
+		?>
+       
+        
+		
+        </div>
+        <div class="mt15 h35 lh35 bgcfa tar fc64"><span class="fl ml10">运费：免运费</span>商品合计金额：<b class="fs16 mr12">￥{$dd_spp_jg}</b></div>
+        <div class="mt15 h45 lh45 bgcfa">
+          <div class="fr"><input class="jiesuan" type="submit" onclick="promptinfo();" value="提交订单" /></div>
+          <div class="fr mr12">共<b class="fs16 fcred"> {$dd_spp} </b>件商品&nbsp;&nbsp;邮费：<b class="fs16 fcred">￥5</b>&nbsp;&nbsp;商品应付总额：<b class="fs20 fcred">￥{$dd_spp_jg}</b></div>
+          <div class="fl ml10 w272">购买留言：<input type="text" name="gmly" class=" w200 select1 " /></div>
+        </div>
+      </div>
+    </div>
+  </form>
+<!-----------内容--------->
+
+
+
+<script type="text/javascript">
+    
+    $('.select2').click(function()
+    {
+	 
+            //$('.select2radio2').attr("checked", '');
+     //$(".select2radio2").each(function(){$(".select2radio2").checked=false;}); 
+	
+        $('.select2').removeClass("selon");
+		//$('input[name=radio2]').attr('checked',false);
+		$(this).addClass("selon");
+		//$('.selon .select2radio2').attr("checked", true);
+    });
+</script>
+
+
+
+
+
+<include file="Page:footer" />

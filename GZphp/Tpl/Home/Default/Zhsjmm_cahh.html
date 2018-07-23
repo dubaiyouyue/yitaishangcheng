@@ -1,0 +1,80 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+  <GZ:list sql="select * from gz_slide_data where fid = '8' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+
+<?php
+
+//dump($new_user_arr_info);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+
+?>
+<style>.layui-layer-page .layui-layer-content{overflow:hidden;}</style>
+ <div class="w680 bgcfff p50" style="height:auto; overflow:auto;{if $gmmm!="iframe"}margin-top: 128px;{/if}">
+  <div class="fl w330 ptr mt20">
+    <div class="login_pic"><img src="{$ewmpic}" width="256" height="317"><!---限宽不限高，高度超出自动隐藏--></div>
+    <div class="login_icon1"><img src="{$img_url}/images/login_icon1.png" width="98" height="150"></div>
+    <div class="login_icon2"><img src="{$img_url}/images/login_icon2.png" width="41" height="94"></div>
+  </div>
+  
+  <form name="zcform" id="zcform" method="POST" action="">
+  <div class="fr w300" style="width: 242px;">
+    <div class="bbs3lan fs25 lh45">重置密码</div>
+	<p id="tsfdsfdsfdf" style="color:red;"></p>
+    <div class="mt30 fs14">
+      <p><span class="fl lh30">新密码：</span><input type="password" name="password" id="password" class="w220 select3">
+      </p>
+      <p><span class="fl lh30">确认密码：</span><input type="password" name="repassword" id="repassword" class="w220 select3">
+      </p>
+    </div>
+    <p class="mt20"><input class="red_kuai1" type="button" onclick="test();" value="提交修改"></p></div>
+	</form>
+	
+</div>
+
+<script>
+function test()
+    {
+        var password=document.getElementById('password').value;
+        var repassword=document.getElementById('repassword').value;
+        if(!password){
+            //alert('请输入密码');return false;
+			$('#tsfdsfdsfdf').text('请输入密码!');
+			return false;
+        }
+        if(password!=repassword){
+            //alert('两次密码不一致！');return false;
+			$('#tsfdsfdsfdf').text('两次密码不一致!');
+			return false;
+        }
+        //document.getElementById("myform").submit();
+//alert(name);
+		$.ajax({
+			type: 'POST',
+			url: '{:URL('User-Login/repassword')}',
+			data: $('#zcform').serialize(),
+			beforeSend: function(){
+			$('#tsfdsfdsfdf').text('正在修改，请稍等...');
+			},
+			success: function(msg){
+			//alert(msg);
+				if(msg==6) $('#tsfdsfdsfdf').text('修改失败!');
+				
+				if(msg==5) {
+					$('#tsfdsfdsfdf').text('修改成功!');
+					ddllff();
+					//location.href = '/index.php?g=Home&m=User&a=index';
+					}
+				//if(msg==8) $('#tsfdsfdsfdf').text('信息填写不完整!');
+			}
+		});
+    }
+</script>
+
+<include file="Page:footer" />

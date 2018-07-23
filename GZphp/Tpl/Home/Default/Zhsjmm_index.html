@@ -1,0 +1,112 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+  <GZ:list sql="select * from gz_slide_data where fid = '8' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+
+<?php
+
+//dump($new_user_arr_info);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+
+?>
+<style>.layui-layer-page .layui-layer-content{overflow:hidden;}</style>
+ <div class="w680 bgcfff p50" style="height:auto; overflow:auto;{if $gmmm!="iframe"}margin-top: 128px;{/if}">
+  <div class="fl w330 ptr mt20">
+    <div class="login_pic"><img src="{$ewmpic}" width="256" height="317"><!---限宽不限高，高度超出自动隐藏--></div>
+    <div class="login_icon1"><img src="{$img_url}/images/login_icon1.png" width="98" height="150"></div>
+    <div class="login_icon2"><img src="{$img_url}/images/login_icon2.png" width="41" height="94"></div>
+  </div><form name="zcform" id="zcform" method="POST" action="">
+  <div class="fr w300" style="width: 242px;">
+    <div class="bbs3lan fs25 lh45">找回密码</div>
+	<p id="tsfdsfdsfdf" style="color:red;"></p>
+    <div class="mt30 fs14">
+      <p><span class="fl lh30">绑定手机：</span><input type="text" maxlength="11" name="mobile" id="mobile" class="w220 select3">
+      </p>
+      <p class="mt15"><span class="fr lh30"><a class="tdun fs12" href="javascript:;" id="myspppidcc" onclick="ccode();">点击获取短信验证码</a></span><span class="fl lh30">短信验证码 ：</span><input type="text" class=" w85 select3" name="cmobile" id="cmobile"></p>
+	  
+	  <p class="mt15"><span class="fl lh30">验证码：</span><div style="clear:both;"></div></p>
+	  <p><input name="verifyCode" id="verify" type="text" class=" w85 select3">
+                <img src="{:U('Home/Index/verify')}" id="verifyImage" onclick="javascript:resetVerifyCode();" width="50" height="22" class="ml7" title="{:L('resetVerifyCode')}"></p>
+	  
+	  
+    </div>
+    <p class="mt20"><input class="red_kuai1" type="button" onclick="testsdfsdfd();" value="马上找回"></p></div></form>
+</div>
+
+<script>
+function testsdfsdfd()
+    {
+        var mobile=document.getElementById('mobile').value;
+        var cmobile=document.getElementById('cmobile').value;
+		var verify=document.getElementById('verify').value;
+        if(!mobile){
+            //alert('请输入密码');return false;
+			$('#tsfdsfdsfdf').text('请输入手机号!');
+			return false;
+        }
+        if(!cmobile){
+            //alert('两次密码不一致！');return false;
+			$('#tsfdsfdsfdf').text('请输入短信验证码!');
+			return false;
+        }
+		if(!verify){
+            //alert('两次密码不一致！');return false;
+			$('#tsfdsfdsfdf').text('请输入验证码!');
+			return false;
+        }
+        //document.getElementById("myform").submit();
+		//layajaxrrzzhmxxxx();
+//alert(name);
+		$.ajax({
+			type: 'POST',
+			url: '{:URL('User-Login/repassword')}',
+			data: $('#zcform').serialize(),
+			beforeSend: function(){
+			$('#tsfdsfdsfdf').text('正在检查，请稍等...');
+			},
+			success: function(msg){
+			//alert(msg);
+				//if(msg==1) $('#tsfdsfdsfdf').text('手机号格式错误!');
+				if(msg==2) $('#tsfdsfdsfdf').text('手机号未注册!');
+				if(msg==3) $('#tsfdsfdsfdf').text('手机验证码不正确!');
+				//if(msg==4) $('#tsfdsfdsfdf').text('手机验证码不正确!');
+				//if(msg==5) $('#tsfdsfdsfdf').text('信息填写不完整!');
+				if(msg==1) $('#tsfdsfdsfdf').text('验证码错误!');
+				if(msg==4) {
+					$('#tsfdsfdsfdf').text('验证成功!请重置密码！');
+					layajaxrrzzhmxxxx();
+					//location.href = '/index.php?g=Home&m=User&a=index';
+					}
+				//if(msg==8) $('#tsfdsfdsfdf').text('信息填写不完整!');
+			}
+		});
+    }
+
+
+
+
+
+function ccode(){
+var mobile=document.getElementById('mobile').value;
+if(!mobile){
+            alert('请输入手机号');return false;
+        }
+	$.ajax( { 
+        
+		url: '/emay.php/?tel='+mobile, //这里是静态页的地址 
+        type: "GET", //静态页用get方法，否则服务器会抛出405错误 
+        success: function(){ 
+		alert('手机短信验证码已发送！');
+            $('#myspppidcc').remove();
+        } 
+}); 
+}
+</script>
+
+<include file="Page:footer" />

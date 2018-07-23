@@ -1,0 +1,38 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+<style>
+    body{  background: url({$img_url}/images/vip_bg.jpg) no-repeat center top;
+        padding-top: 135px;
+        margin-top: 170px;}
+</style>
+
+<!-----------内容--------->
+  <form name="myform" id="myform" action="{:URL('Home-Hyk/edit')}" method="post">
+    <div class="centent5 pb80" style="height:auto; overflow:auto">
+      
+	  
+	  
+	  <include file="U:l" />
+	  
+	  
+	  
+      <div class="fr w680">
+        <div class="bbs1lan h30 fs14">
+          <div class="fl VIP_bk1_on">会员卡说明</div>
+        </div>
+        <div class="mt50 h30 lh30">
+          {$list_address.0.content}
+		  </div>
+      </div>
+    </div>
+  </form>
+<!-----------内容--------->
+
+<include file="Page:footer" />

@@ -1,0 +1,34 @@
+
+<button id="btn">发送短信</button>
+
+<script type="text/javascript">
+    var test = {
+       node:null,
+       count:60,
+       start:function(){
+          //console.log(this.count);
+          if(this.count > 0){
+             this.node.innerHTML = this.count--;
+             var _this = this;
+             setTimeout(function(){
+                 _this.start();
+             },1000);
+          }else{
+             this.node.removeAttribute("disabled");
+             this.node.innerHTML = "再次发送";
+             this.count = 60;
+          }
+       },
+       //初始化
+       init:function(node){
+          this.node = node;
+          this.node.setAttribute("disabled",true);
+          this.start();
+       }
+    };
+    var btn = document.getElementById("btn");
+    btn.onclick = function(){
+       alert("发送成功...");
+       test.init(btn);
+    };
+</script>

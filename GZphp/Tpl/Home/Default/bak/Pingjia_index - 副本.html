@@ -1,0 +1,111 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+
+        <link rel="stylesheet" href="/GZphp/Tpl/Home/Default/Public/css/tinyscrollbar.css" type="text/css" media="screen"/>
+
+        
+        <!-- build:js jquery.tinyscrollbar.js -->
+        <script type="text/javascript" src="/GZphp/Tpl/Home/Default/Public/js/jquery.tinyscrollbar.js"></script>
+        <!-- /build -->
+        <script type="text/javascript">
+            $(document).ready(function()
+            {
+                var $scrollbar  = $('#scrollbar1')
+                ,   $overview   = $scrollbar.find(".overview")
+                ,   loadingData = false
+                ;
+
+                $scrollbar.tinyscrollbar({thumbSize : 20});
+
+                var scrollbarData = $scrollbar.data("plugin_tinyscrollbar")
+
+                $scrollbar.bind("move", function()
+                {
+                    // The threshold will enable us to start loading the text before we reach the end.
+                    //
+                    var threshold       = 0.9
+                    ,   positionCurrent = scrollbarData.contentPosition + scrollbarData.viewportSize
+                    ,   positionEnd     = scrollbarData.contentSize * threshold
+                    ;
+
+                    // Check if have reached the "end" and that we arent allready in the process of loading new data.
+                    //
+					/*
+                    if(!loadingData && positionCurrent >= positionEnd)
+                    {
+                        loadingData = true;
+
+                        $.getJSON("data.json", function(data)
+                        {
+                            loadingData = false;
+
+                            $overview.append(data.text)
+
+                            scrollbarData.update("relative");
+                        });
+                    }
+					*/
+                });
+            });
+        </script>
+
+
+
+<div class="w680 bgcfff p50" style="height:auto; overflow:auto">
+
+  <div class="fl w245" style="position: fixed;">
+        <div class="mb15"><a href=""><img src="{$pic}" width="245" /></a></div>
+        <div class="fs14 fc000 pt20"><a href="">{$title}</a></span></div>
+  </div>
+  
+  <div class="fr w400" id="scrollbar1">
+              <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+            <div class="viewport">
+                 <div class="overview">
+    <div class="fc000 fs16 lh30 bgcfa t1em fclan mb15">全部评价：</div>
+    
+    
+    
+    <?php
+	//dump($list_mya);
+		if(!$list_mya) echo '暂无评价';
+		foreach($list_mya as $k=>$v){
+			?>
+			<div class=" pt10 pb10 bbdcc" style="height:auto; overflow:auto">
+      <div class="fl w59"><img src="/demo/images/VIP_image.jpg" alt="" width="50" /></div>
+      <div class="fr w330">
+        <div class="pb10"><span class="fr">
+		
+		<?php
+			$mmyy=array(5=>'满意',3=>'一般',1=>'不满意');
+			//dump($mmyy);
+			for($i=1;$i<=5;$i++){
+				if($i<=($v['my'])) echo '<img src="/demo/images/star.jpg" width="17" height="16" />';
+				else echo '<img src="/demo/images/star1.jpg" width="17" height="16" />';
+			}
+		?>
+		
+		
+		
+		
+		
+		<b class="ml10 fcred"><?php echo $mmyy[$v['my']];?></b></span><strong><?php echo $v['uname'];?>：</strong></div>
+        <div class=" fc64 lh20"><?php echo $v['content'];?></div>
+      </div>
+    </div>
+			<?php
+		}
+	?>
+    
+    
+    
+    </div></div>
+    
+  </div>
+  
+</div>
+
+
+
+<include file="Page:footer" />

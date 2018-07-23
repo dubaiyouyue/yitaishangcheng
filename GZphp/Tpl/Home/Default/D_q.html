@@ -1,0 +1,27 @@
+﻿
+<script type="text/javascript" src="/demo/geo.js"></script>
+
+        
+            <select class="select" name="province" id="address-s1">
+              <option></option>
+            </select>
+            <select class="select" name="city" id="address-s2">
+              <option></option>
+            </select>
+            <select class="select" name="town" id="address-s3">
+              <option></option>
+            </select>
+            
+<script>
+setup();preselect('广西');promptinfo();
+//这个函数是必须的，因为在geo.js里每次更改地址时会调用此函数
+function promptinfo()
+{
+    var address = document.getElementById('address-address');
+    var s1 = document.getElementById('address-s1');
+    var s2 = document.getElementById('address-s2');
+    var s3 = document.getElementById('address-s3');
+    address.value = s1.value + s2.value + s3.value;
+}
+
+</script>

@@ -1,0 +1,180 @@
+<?php
+//dump($new_mm['id']);exit;
+	if($new_mm['id']){
+		//$this->error(L('请登录！'),'/index.php/login/');
+		header('Location:/index.php?g=Home&m=User&a=index'.$the_url);
+		exit;
+	}
+?>
+{__NOLAYOUT__}
+<include file="Page:header" />
+  <GZ:list sql="select * from gz_slide_data where fid = '8' and  status='1' order by listorder,id desc limit 1" key='i'>
+    
+	<?php 
+		$ewmpic=$r['pic'];
+		$ewmpicsmall=$r['small'];
+	?>
+</GZ:list>
+
+<?php
+
+//dump($new_user_arr_info);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+
+?>
+
+<script type="text/javascript" src="/Public/Js/my.js"></script>
+
+
+
+<form name="zcform" id="zcform" method="POST" action="">
+    <div class="w680 bgcfff p50" style="height:auto;width: auto; overflow:auto;{if $gmmm!="iframe"}margin-top: 128px;{/if}">
+    <div class="fl w330 ptr mt20">
+        <div class="login_pic"><img src="{$ewmpic}" width="256" height="317"><!---限宽不限高，高度超出自动隐藏--></div>
+        <div class="login_icon1"><img src="{$img_url}/images/login_icon1.png" width="98" height="150"></div>
+        <div class="login_icon2"><img src="{$img_url}/images/login_icon2.png" width="41" height="94"></div>
+    </div>
+    <div class="fr w320">
+        <div class="bbs3lan pb25"><img src="{$img_url}/images/register.png" width="181" height="42"></div>
+		<p id="tsfdsfdsfdf" style="color:red;"></p>
+        <div class="mt30 fs14 ">
+
+
+            <p><span class="fl lh30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名：</span><input maxlength="50" type="text" id="username" name="username" value="" class="w200 select3"></p>
+            <p class="mt7"><span class="fl lh30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手机号：</span><input maxlength="11" name="mobile" id="mobile" type="text" class="w200 select3"></p>
+            <p class="mt7"><span class="fl lh30">短信校验码：</span><input name="cmobile" id="c_mobile" type="text" class=" w60 select3 mr7" value="" maxlength="6"><a class="tdun fs12" href="javascript:;" id="myspppidcc" onclick="ccode();">点击获取验证码</a></p>		
+            <p class="mt7"><span class="fl lh30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码：</span><input name="password" type="password" id="password" class="w200 select3"></p>
+            <p class="mt7"><span class="fl lh30">&nbsp;&nbsp;&nbsp;重复密码：</span><input name="password2" id="password2" type="password" class="w200 select3"></p>
+            <p class="mt7"><span class="fl lh30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验证码：</span><input name="verifyCode" id="verify" type="text" class=" w85 select3">
+                <img src="{:U('Home/Index/verify')}" id="verifyImage" onclick="javascript:resetVerifyCode();" width="50" height="22" class="ml7" title="{:L('resetVerifyCode')}"></p>
+
+
+
+
+
+            <p class="fs12 mt10"><input name="" id="checkboxID" type="checkbox"checked="true" value="" class="ml80"><span style="cursor: pointer;" onclick="assssthh();">《意态YITAIWM用户协议》</span></p>
+        </div>
+        <div class="mt7 fc999"><input class="lan_kuai ml80" type="button" value="同意协议并注册" onclick="test();">已有账号，<a href="javascript:;" onclick="ddllff();" class="fcorg"><u>去登录</u></a></div></div>
+</div>
+
+
+</form>
+
+
+
+
+
+
+<script>
+
+function ccode(){
+var mobile=document.getElementById('mobile').value;
+if(!mobile){
+            alert('请输入手机号');return false;
+        }
+	$.ajax( { 
+        
+		url: '/emay.php/?tel='+mobile, //这里是静态页的地址 
+        type: "GET", //静态页用get方法，否则服务器会抛出405错误 
+        success: function(){ 
+		alert('手机短信验证码已发送！');
+            $('#myspppidcc').remove();
+        } 
+}); 
+}
+
+    function test()
+    {
+        var username=document.getElementById('username').value;
+        var mobile=document.getElementById('mobile').value;
+        var c_mobile=document.getElementById('c_mobile').value;
+        var password=document.getElementById('password').value;
+        var password2=document.getElementById('password2').value;
+        var verify=document.getElementById('verify').value;
+        if(!username){
+            //alert('请输入用户名');return false;
+			$('#tsfdsfdsfdf').text('请输入用户名!');
+			return false;
+        }
+        if(!mobile){
+            //alert('请输入手机号');return false;
+			$('#tsfdsfdsfdf').text('请输入手机号!');
+			return false;
+        }
+        if(!c_mobile){
+            //alert('请输入短信验证码');return false;
+			$('#tsfdsfdsfdf').text('请输入短信验证码!');
+			return false;
+        }
+        if(!password){
+            //alert('请输入密码');return false;
+			$('#tsfdsfdsfdf').text('请输入密码!');
+			return false;
+        }
+        if(password!=password2){
+            //alert('两次密码不一致！');return false;
+			$('#tsfdsfdsfdf').text('两次密码不一致!');
+			return false;
+        }
+        if(!verify){
+        //alert('请输入验证码！');return false;
+			$('#tsfdsfdsfdf').text('请输入验证码!');
+			return false;
+        }
+
+        if(!document.getElementById("checkboxID").checked){
+            //alert("请同意协议！");return false;
+			$('#tsfdsfdsfdf').text('请同意协议!');
+			return false;
+        }
+        //document.getElementById("myform").submit();
+//alert(name);
+		$.ajax({
+			type: 'POST',
+			url: '{:URL('User-Register/doreg')}',
+			data: $('#zcform').serialize(),
+			beforeSend: function(){
+			$('#tsfdsfdsfdf').text('注册中，请稍等...');
+			},
+			success: function(msg){
+			//alert(msg);
+				if(msg==1) $('#tsfdsfdsfdf').text('手机号格式错误!');
+				if(msg==2) $('#tsfdsfdsfdf').text('用户名已经被注册!');
+				if(msg==3) $('#tsfdsfdsfdf').text('手机号已经被注册!');
+				if(msg==4) $('#tsfdsfdsfdf').text('手机验证码不正确!');
+				if(msg==5) $('#tsfdsfdsfdf').text('信息填写不完整!');
+				if(msg==6) $('#tsfdsfdsfdf').text('验证码错误!');
+				if(msg==7) {
+					$('#tsfdsfdsfdf').text('注册成功!');
+					location.href = '/index.php?g=Home&m=User&a=index';
+					}
+				//if(msg==8) $('#tsfdsfdsfdf').text('信息填写不完整!');
+			}
+		});
+    }
+
+function assssthh(){
+layer.closeAll();
+layer.open({
+	area: ['1000px', '600px'],
+	title :'意态YITAIWM用户协议',
+    type: 2, 
+	content: ['/index.php/yonghuxieyi/'],
+	end:function(){
+		ddllffrr();
+	}
+}); 
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+<include file="Page:footer" />

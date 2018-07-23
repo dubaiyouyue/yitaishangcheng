@@ -1,0 +1,242 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+<?php
+
+//dump($new_mm);exit;
+$img_url='/GZphp/Tpl/Home/Default/Public';
+//dump($_SESSION);
+?>
+
+<!-----------内容--------->
+
+<div class="cart_bg">
+    <div class="centent2 pb80">
+        <div class=" h45 mb25">
+            <div class="step bbs42A fs18"><b class=" fs30">01</b> / 我的购物车</div>
+            <div class="step bbs4cc fs18 fcccc"><b class=" fs30">02</b> / 确定订单信息</div>
+            <div class="step bbs4dd fs18 fcddd"><b class=" fs30">03</b> / 成功提交订单</div>
+        </div>
+        <div class="bgcfa lh35 h35">
+            <div class="cart_cn1"><span class="ml20">订购商品</span></div>
+            <div class="cart_cn2">单价（元）</div>
+            <div class="cart_cn3">数量</div>
+            <div class="cart_cn4">小计（元）</div>
+            <div class="cart_cn5">操作</div>
+        </div>
+
+
+
+
+
+
+
+<?php
+foreach($list_my as $k=>$v){
+        ?>
+        <div class="shop_list" id="myspppid{$v.did}">
+            <div class="cart_cn1">
+                <div class="fl mr12 w59"><a href="{$nsfdsfdsfsss}{$v.id}.html"><img src="{$v.thumb}" width="59" height="75" /></a></div>
+                <div class="fl lh24 w375">
+                    <a class="fc64" href="{$nsfdsfdsfsss}<?php echo $v['id'];?>.html"><?php echo $v['title']?></a>
+                    <p class="fca7">
+                        颜色：{$v.ys}&nbsp;&nbsp;尺码：{$v.cm}
+                    </p>
+                </div>
+            </div>
+            <div class="cart_cn2 pt20 lh20"><?php echo $v['price'];?><p class="fca7 tdlt" style="display: none;">2576.00</p></div>
+            <div class="cart_cn3 pt20">
+
+                <a href="javascript:;" onclick="cnum('{$v.did}','minus','{$v.price}','');"><img class="fl ml30" src="{$img_url}/images/jian.png" width="22" height="22" /></a>
+
+                <input type="text" class="shu" id="nn{$v.did}" value="{$v.num}" name="nnabc" onkeyup="cnumcc('{$v.did}','{$v.price}');" />
+
+                <a href="javascript:;" onclick="cnum('{$v.did}','add','{$v.price}','');"><img src="{$img_url}/images/jia.png" class="fl" width="22" height="22" /></a>
+
+
+
+
+            </div>
+            <div class="cart_cn4 pt20"><p class="fcred fs14 zzjjgg" id="np{$v.did}">
+                <?php
+            echo ($v['price']*$v['num']);
+            ?>
+            </p><span style="display: none;">省765.00</span></div>
+            <div class="cart_cn5 pt30"><a href="javascript:;" onclick="delo('{$v.did}');"><img src="{$img_url}/images/laji.png" width="14" height="14" /></a></div>
+        </div>
+<?php }?>
+
+
+
+
+
+
+        <div class="mt15 h30 lh30 bgcfa tar fc999">商品金额：<b class="fs16 mr12">￥<span id="psze1">{$dd_spp_jg}</span></b></div>
+        <div class="mt15 h45 lh45 bgcfa">
+            <div class="fr"><input class="jiesuan" type="button" onclick="caroook();" value="去结算" /></div>
+            <div class="fr mr12">共<b class="fs16 fcred"> <span id="sppnn">{$dd_spp}</span> </b>件商品&nbsp;&nbsp;邮费：<b class="fs16 fcred">￥<span id="fdasfdasff"><?php if($dd_spp_jg<$buyon) echo $buyyf;else echo '0';?></span></b>&nbsp;&nbsp;商品应付总额：<b class="fs20 fcred">￥<span  id="psze2">{$dd_spp_jg}</span></b></div>
+            <div class="fl ml10"><a href="/index.php/home/">继续购物</a> | <a href="javascript:;" onclick="delall();">清空购物车</a></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+function caroook(){
+	location.href = '/index.php?g=Home&m=Cartok&a=index';
+}
+    //清空购物车
+    function delall(){
+
+        //询问框
+        layer.confirm('你确定要清空购物车？', {
+            btn: ['确定','取消'], //按钮
+            shade: false //不显示遮罩
+        }, function(){
+            //layer.msg('的确很重要', {icon: 1});
+            $.ajax( {
+                url: '/index.php?g=Home&m=Cart&a=index&delall=ok',//这里是静态页的地址
+                type: "GET", //静态页用get方法，否则服务器会抛出405错误
+                success: function(){
+                    //alert('21321321321');
+                    location.href = '/index.php?g=Home&m=Cart&a=my';
+                }
+            });
+        }, function(){
+            //layer.msg('奇葩么么哒', {shift: 6});
+        });
+    }
+
+
+    //删除商品
+    function delo(did){
+        //alert(did);
+        var ii = layer.load();
+        $.ajax( {
+            url: '/index.php?g=Home&m=Cart&a=index&del=ok&id='+did, //这里是静态页的地址
+            type: "GET", //静态页用get方法，否则服务器会抛出405错误
+            success: function(){
+                $('#myspppid'+did).remove();
+                setTimeout(function(){
+                    layer.close(ii);
+
+                }, 300);
+
+                cnumcc(did,'');
+
+
+            }
+        });
+    }
+
+    function cnumcc(did,np){
+        var demo=0;
+
+        $("input[name='nnabc']").each(function(){
+            demo=demo+parseInt($(this).val());
+        });
+
+        //document.cookie="demo="+demo;
+        //alert(demo);  //总共商品数量
+
+        var vnp=parseInt(np);//当前商品价格
+        var num=$('#nn'+did).val(); //当前商品数量
+		if(num<1) {
+		num=1;
+		$('#nn'+did).val(1)
+		}
+        var npp=vnp*num;
+
+        
+
+
+        if(np=='') num=0;
+        $.ajax( {
+            url: '/index.php?g=Home&m=Cart&a=index&cm=cc&id='+did+'&dm='+num, //这里是静态页的地址
+            type: "GET", //静态页用get方法，否则服务器会抛出405错误
+            success: function(){
+
+                //alert(npp);
+                $('#sppnn').text(demo);
+                $('#np'+did).text(npp);
+
+				//总价格
+        var demojg=0;
+
+        $(".zzjjgg").each(function(){
+            demojg=demojg+parseInt($(this).text());
+        });
+				if(demojg<'<?php echo $buyon; ?>') $('#fdasfdasff').text('<?php echo $buyyf;?>');
+				else $('#fdasfdasff').text('0');
+                $('#psze2').text(demojg);
+                $('#psze1').text(demojg);
+            }
+        });
+    }
+
+
+    //修改商品数量
+    function cnum(did,na,np,on){
+
+        //alert(onum);
+        //var ii = layer.load();
+
+                var onum=document.getElementById('nn'+did).value;
+                //alert(onum);
+                if(na=='add') {
+
+                    //alert(parseInt(onum));
+                    document.getElementById('nn'+did).value=parseInt(onum)+1;
+                    //setTimeout(function(){
+                        cnumcc(did,np);
+
+                    //}, 300);
+
+
+
+                    /*
+
+
+                    $('#psze2').text(parseInt($('#psze2').text())+parseInt(np));
+                    $('#psze1').text(parseInt($('#psze1').text())+parseInt(np));
+                    */
+                }
+
+                if((na=='minus') && (parseInt(onum)>1)) {
+                    document.getElementById('nn'+did).value=parseInt(onum)-1;
+                    //setTimeout(function(){
+                        cnumcc(did,np);
+
+                    //}, 300);
+
+
+                    /*
+                    $('#np'+did).text(parseInt($('#np'+did).text())-parseInt(np));
+                    $('#sppnn').text(parseInt($('#sppnn').text())-1);
+                    $('#psze2').text(parseInt($('#psze2').text())-parseInt(np));
+                    $('#psze1').text(parseInt($('#psze1').text())-parseInt(np));
+                    */
+                }
+
+
+
+                //layer.close(ii);
+
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!-----------内容--------->
+
+<include file="Page:footer" />

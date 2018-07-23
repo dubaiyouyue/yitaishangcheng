@@ -1,0 +1,26 @@
+{__NOLAYOUT__}
+<include file="Page:header" />
+
+
+<div class="union_bg">
+  <div class="union_warp fs14">
+    <a href="/index.php/union/"><div class="union_title">媒体联盟</div></a>
+    <a href="/index.php/unions/"><div class="union_title union_on">商家合作</div></a>
+  </div>
+</div>
+
+<div class="centent1 tacn" style="height:auto; overflow:auto; padding-top:340px;">
+
+    <GZ:list sql = "SELECT * FROM  gz_slide_data WHERE  lang = '1'  AND STATUS = '1' and fid = '4' ORDER BY id DESC LIMIT 99999" >
+  <div class="union">
+    <div style=" width:45px; height:1px; margin:0 auto; border-top:1px solid #000;"></div>
+    <div class="fs14 lh80">{$r.title}</div>
+    <div class="union_pic"><a href="{$r.link}" target="_blank"><img src="{$r.small}" width="240" height="125" /></a></div>
+  </div>
+  </GZ:list>
+  
+ 
+  
+</div>
+
+<include file="Page:footer" />

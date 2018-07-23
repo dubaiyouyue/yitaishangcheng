@@ -1,0 +1,21 @@
+<div class="manu">
+<?php
+if ($page != 1) { //页数不等于1 
+?> 
+<a href="javascript:;" onclick="left_ajax('<?php echo $keycatid;?>','<?php echo $page - 1;?>');">上一页</a> <!--显示上一页--> 
+<?php 
+} 
+for ($i=1;$i<=$totalPage;$i++) { //循环显示出页面 
+if($i==$page){
+?> 
+<span class="current"><?php echo $i;?></span><?php }else{?>
+<a href="javascript:;" onclick="left_ajax('<?php echo $keycatid;?>','<?php echo $i;?>');"><?php echo $i ;?></a> 
+<?php }
+} 
+if ($page<$totalPage) { //如果page小于总页数,显示下一页链接 
+?> 
+<a href="javascript:;" onclick="left_ajax('<?php echo $keycatid;?>','<?php echo $page + 1;?>');">下一页</a> 
+<?php 
+}  
+?> 
+</div>
